@@ -1,12 +1,12 @@
 <template>
 <div class="index">
-  <Hero />
+  <Bridge />
 </div>
 </template>
 
 <script>
 export default {
-    name: 'IndexPage',
+    name: 'BridgePage',
     layout: 'index'
 }
 </script>

@@ -14,8 +14,8 @@ contract CrossArt {
 
     // destinations contract
     mapping(uint => address) public destinations;
-
     mapping(address => address) private nftMaps;
+    mapping(add)
 
     receive() external payable {}
 
@@ -114,6 +114,13 @@ contract CrossArt {
     ) public onlyDeployer {
         destinations[chainId] = contractAddress;
     }
+
+    function deposit(address _account) external payable {
+        executionBudget[_account] += msg.value;
+        emit Deposit(_account, msg.value);
+    }
+
+    event Desposit(address account, uint256 amount);
 
     modifier onlyDeployer() {
         require(msg.sender == _deployer, "only owner can call this method");

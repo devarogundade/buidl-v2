@@ -1,0 +1,39 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+    transition: .2s;
+}
+
+.modal {
+    height: 100vh;
+    overflow-y: hidden;
+    padding-right: 10px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.app-width {
+    width: 1400px;
+    max-width: 90%;
+}
+
+.fi {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
