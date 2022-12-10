@@ -21,7 +21,15 @@ const CrossArt = {
             return null
         }
     },
-    createCollection: async function(name, symbol, supply = 0, supportedChains, address) {
+    createCollection: async function(
+        name,
+        symbol,
+        supply = 0,
+        supportedChains,
+        address,
+        coverUrl,
+        avatarUrl
+    ) {
         const instance = await this.getInstance()
 
         if (instance == null) return {
@@ -100,3 +108,5 @@ const CrossArt = {
         }
     }
 }
+
+export default CrossArt

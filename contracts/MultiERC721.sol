@@ -35,11 +35,25 @@ contract MultiERC721 is ERC721 {
         return _creator;
     }
 
-    function mint(string memory uri, address to) public returns (uint) {
-        tokenID++;
-        _mint(to, tokenID);
-        _setTokenURI(tokenID, uri);
-        return tokenID;
+    function mint(
+        string memory uri,
+        address to,
+        uint256 _tokenID
+    ) public returns (uint) {
+        uint _id;
+        if (_tokenID > 0) {
+            tokenID++;
+            _id = tokenID;
+        } else {
+            _id = _tokenID;
+        }
+        _mint(to, _id);
+        _setTokenURI(_id, uri);
+        return _id;
+    }
+
+    function burn(uint256 _tokenID) public {
+        _burn(_tokenID);
     }
 
     function holderOf(uint256 tokenId) public view returns (address) {
@@ -49,7 +63,7 @@ contract MultiERC721 is ERC721 {
     function isChainSupported(uint destChain) public view returns (bool) {
         for (uint index = 0; index < _supportedChains.length; index++) {
             if (_supportedChains[index] == destChain) {
-              return true;
+                return true;
             }
         }
         return false;

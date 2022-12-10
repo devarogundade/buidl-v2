@@ -42,7 +42,7 @@ export default {
 
 
     axios: {
-        baseURL: '/api/v1/',
+        baseURL: 'https://deep-index.moralis.io/api/v2/',
     },
 
     build: {
