@@ -23,37 +23,29 @@ contract MultiERC721 is ERC721 {
     constructor(
         string memory name,
         string memory symbol,
-        uint[] memory supportedChains,
-        uint primaryChain,
-        address creator
+        uint[] memory supportedChains_,
+        uint primaryChain_,
+        address creator_
     ) ERC721(name, symbol) {
-        _creator = creator;
-        _primaryChain = primaryChain;
-        _supportedChains = supportedChains;
+        _creator = creator_;
+        _primaryChain = primaryChain_;
+        _supportedChains = supportedChains_;
     }
 
-    function getName() public view returns (string calldata) {
-        return name;
-    }
-
-    function getSymbol() public view returns (string calldata) {
-        return symbol;
-    }
-
-    function getCreator() public view returns (address) {
+    function creator() public view returns (address) {
         return _creator;
     }
 
-    function getSourceAddress() public view returns (address) {
+    function sourceAddress() public view returns (address) {
         return _primaryAddress;
     }
 
-    function getSupportedChains() public view returns (uint[] memory) {
+    function supportedChains() public view returns (uint[] memory) {
         return _supportedChains;
     }
 
-    function setSourceAddress(address sourceAddress) public {
-        _primaryAddress = sourceAddress;
+    function setSourceAddress(address sourceAddress_) public {
+        _primaryAddress = sourceAddress_;
     }
 
     function mint(

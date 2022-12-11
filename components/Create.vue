@@ -4,45 +4,35 @@
         <div class="apply">
             <div class="form">
                 <div class="image">
-                    <img src="" alt="" class="cover">
-                    <img src="" alt="" class="avatar">
+                    <img :src="cover" id="cover" class="cover">
+                    <input type="file" accept="image/*" v-on:change="chooseCover($event)">
+                    <img :src="avatar" id="avatar" class="avatar">
+                    <input type="file" accept="image/*" v-on:change="chooseAvatar($event)">
                 </div>
 
                 <div class="edit">
                     <p class="label">Collection Name</p>
-                    <input :class="getInputClassForName()" type="email" v-model="name" placeholder="John Doe" maxlength="45">
-                    <p v-if="errorName" class="error-text">{{ errorName }}</p>
+                    <input type="email" v-model="name" placeholder="Simple Art" maxlength="45">
                 </div>
 
                 <div class="edit">
                     <p class="label">About Collection</p>
-                    <input :class="getInputClassForEmail()" type="email" v-model="email" placeholder="Johndoe@mail.com" maxlength="45">
-                    <p v-if="errorEmail" class="error-text">{{ errorEmail }}</p>
+                    <input type="text" v-model="email" placeholder="Simple Art of People" maxlength="45">
                 </div>
 
                 <div class="edit">
                     <p class="label">Select supported blockchains</p>
                     <div class="roles">
-                        <div :class="role == 'Creator' ? 'selected role' : 'role'" v-on:click="role ='Creator'">Mumbai <img src="/images/checkbox.svg"></div>
-                        <div :class="role == 'Developer' ? 'selected role' : 'role'" v-on:click="role ='Developer'">BSC <img src="/images/checkbox.svg"></div>
-                        <div :class="role == 'Marketer' ? 'selected role' : 'role'" v-on:click="role ='Marketer'">Arbitium <img src="/images/checkbox.svg"></div>
-                        <div :class="role == 'Gnosis' ? 'selected role' : 'role'" v-on:click="role ='Gnosis'">Gnosis <img src="/images/checkbox.svg"></div>
+                        <div v-for="chain in chains" :key="chain.chainId" :class="selectedChains.includes(chain.chainId) ? 'selected role' : 'role'" v-on:click="selectChain(chain)">{{ chain.name }} <i class="fi fi-rr-check"></i></div>
                     </div>
                 </div>
 
                 <div class="edit">
                     <p class="label">Website Link</p>
-                    <input :class="getInputClassForWork()" v-model="work" type="text" placeholder="https://www.example.com">
-                    <p class="error-text" v-if="errorWork">{{ errorWork }}</p>
+                    <input v-model="work" type="text" placeholder="https://www.example.com">
                 </div>
 
-                <div class="edit">
-                    <p class="label">Telegram Username</p>
-                    <input :class="getInputClassForTelegram()" v-model="telegram" type="text" placeholder="@username">
-                    <p class="error-text" v-if="errorTelegram">{{ errorTelegram }}</p>
-                </div>
-
-                <div class="sign_up" v-if="!applying" v-on:click="apply()">Create</div>
+                <div class="sign_up" v-if="!creating" v-on:click="create()">Create</div>
                 <div class="sign_up" v-else>Please wait..</div>
             </div>
 
@@ -52,14 +42,22 @@
 </template>
 
 <script>
+import chains from "~/static/chains.json"
+import Authenticate from '~/static/scripts/Authenticate';
+import CrossArt from '~/static/scripts/CrossArt';
+import IPFS from '~/static/scripts/IPFS';
+
 export default {
     data() {
         return {
             //name
             name: '',
             errorName: null,
-            // role
-            role: '',
+            cover: '/images/placeholder.webp',
+            avatar: '/images/placeholder.webp',
+            // chains
+            chains: chains,
+            selectedChains: [],
             // email
             email: '',
             errorEmail: null,
@@ -70,8 +68,9 @@ export default {
             work: '',
             errorWork: null,
             // signing
-            applying: false,
-            success: false
+            creating: false,
+            coverFile: null,
+            avatarFile: null
         }
     },
     watch: {
@@ -84,17 +83,31 @@ export default {
         }
     },
     methods: {
-        apply() {
-            if (this.applying && !this.success) return
-            this.applying = false
-
-            if (this.errorName != null ||
-                this.errorEmail != null ||
-                this.errorTelegram != null ||
-                this.errorWork != null
-            ) {
-                return
+        selectChain: function (chain) {
+            if (this.selectedChains.includes(chain.chainId)) {
+                const index = this.selectedChains.indexOf(chain.chainId);
+                if (index > -1) { // only splice array when item is found
+                    this.selectedChains.splice(index, 1); // 2nd parameter means remove one item only
+                }
+            } else {
+                this.selectedChains.push(chain.chainId)
             }
+        },
+        chooseCover: function (event) {
+            const file = event.target.files[0]
+            const url = URL.createObjectURL(file)
+            document.getElementById('cover').src = url
+            this.coverFile = file
+        },
+        chooseAvatar: function (event) {
+            const file = event.target.files[0]
+            const url = URL.createObjectURL(file)
+            document.getElementById('avatar').src = url
+            this.avatarFile = file
+        },
+        create: function () {
+            if (this.creating) return
+            this.creating = false
 
             if (this.name == '' ||
                 this.telegram == '' ||
@@ -104,105 +117,21 @@ export default {
                 return
             }
 
-            if (this.role == '' || this.role == null) {
-                this.$emit('error', 'Select a role')
-                return
-            }
+            this.creating = true
 
-            this.applying = true
+            const url1 = await IPFS.upload("", this.coverFile)
+            const url2 = await IPFS.upload("", this.avatarFile)
 
-            const params = `name=${this.name}&email=${this.email}&role=${this.role}&telegram=${this.telegram}&work=${this.work}`
-
-            this.$axios.get(`https://server.luckycats.games/api/apply?${params}`).then(response => {
-                const status = response.data.status
-                const code = response.data.code
-                const message = response.data.message
-
-                if (status) {
-                    this.success = true
-                } else if (code == 10000) {
-                    this.$emit('error', 'You have entered wrong details')
-                } else {
-                    this.$emit('error', message)
-                }
-
-                this.applying = false
-            }).catch(err => {
-                this.$emit('error', err)
-                this.applying = false
-            })
-        },
-
-        getInputClassForName() {
-            if (this.name == '') {
-                this.errorName = null
-                return ''
-            }
-
-            if (this.name.length < 3) {
-                this.errorName = 'Name is too short'
-                return 'error filled'
-            } else {
-                this.errorName = null
-                return 'filled'
-            }
-        },
-
-        getInputClassForEmail() {
-            if (this.email == '') {
-                this.errorEmail = null
-                return ''
-            }
-
-            if (!this.validateEmail(this.email)) {
-                this.errorEmail = 'Invalid email address'
-                return 'error filled'
-            } else {
-                this.errorEmail = null
-                return 'filled'
-            }
-        },
-
-        getInputClassForTelegram() {
-            if (this.telegram == '') {
-                this.errorTelegram = null
-                return ''
-            }
-
-            if (!this.telegram.startsWith('@')) {
-                this.errorTelegram = 'Username must start with @'
-                return 'error filled'
-            }
-            if (this.telegram.length < 4) {
-                this.errorTelegram = 'Invalid username'
-                return 'error filled'
-            } else {
-                this.errorTelegram = null
-                return 'filled'
-            }
-        },
-
-        getInputClassForWork() {
-            if (this.work == '') {
-                this.errorWork = null
-                return ''
-            }
-
-            if (!(this.work.startsWith('https://') || this.work.startsWith('http://'))) {
-                this.errorWork = 'Invalid link'
-                return 'error filled'
-            } else {
-                this.errorWork = null
-                return 'filled'
-            }
-        },
-
-        validateEmail(email) {
-            return String(email)
-                .toLowerCase()
-                .match(
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                )
+            const address = (await Authenticate.getUserAddress(this.network)).address
+            const response = await CrossArt.createCollection(
+                this.name,
+                this.about,
+                0,
+                this.supportedChains,
+                address,
+                url1,
+                url2
+            )
         }
     }
 }
@@ -234,11 +163,11 @@ export default {
     font-size: 18px;
     line-height: 22px;
     letter-spacing: 0.02em;
-    color: #BCB69F;
+    color: #887e55;
     margin-bottom: 10px;
 }
 
-.form input {
+.edit input {
     height: 50px;
     border: 2px solid #BCB69F;
     border-radius: 8px;
@@ -251,38 +180,6 @@ export default {
     line-height: 22px;
     letter-spacing: 0.02em;
     outline: none;
-    color: #F9F6ED;
-}
-
-.form .filled {
-    border: 2px solid #E3BF36;
-}
-
-.form .error {
-    border: 2px solid #C74F4F;
-}
-
-.form .error-text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.02em;
-    color: #C74F4F;
-    margin-top: 10px;
-}
-
-.form .checkbox {
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.02em;
-    color: #BCB69F;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    user-select: none;
-    cursor: pointer;
 }
 
 .tick {
@@ -339,7 +236,7 @@ export default {
     justify-content: space-between;
 }
 
-.role img {
+.role i {
     width: 16px;
     height: 16px;
     display: none;
@@ -350,7 +247,7 @@ export default {
     color: #3D392A;
 }
 
-.selected img {
+.selected i {
     display: block !important;
 }
 
@@ -376,5 +273,24 @@ export default {
     object-fit: cover;
     border-radius: 50%;
     border: 3px #fff solid;
+}
+
+.image input {
+    position: absolute;
+    opacity: 0;
+}
+
+.image input:nth-child(2) {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.image input:nth-child(4) {
+    width: 80px;
+    height: 80px;
+    left: 20px;
+    bottom: -40px;
 }
 </style>

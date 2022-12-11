@@ -66,15 +66,15 @@
     "absolutePath": "project:/contracts/libraries/Events.sol",
     "exportedSymbols": {
       "Events": [
-        3439
+        3567
       ]
     },
-    "id": 3440,
+    "id": 3568,
     "license": "GPL-3.0",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3421,
+        "id": 3549,
         "literals": [
           "solidity",
           ">=",
@@ -94,9 +94,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 3439,
+        "id": 3567,
         "linearizedBaseContracts": [
-          3439
+          3567
         ],
         "name": "Events",
         "nameLocation": "77:6:14",
@@ -105,23 +105,23 @@
           {
             "anonymous": false,
             "eventSelector": "8baa818f291b101444be572d3388b299fba3f296a3d467e084c0dc52b6dc80f6",
-            "id": 3432,
+            "id": 3560,
             "name": "NftDeployed",
             "nameLocation": "96:11:14",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 3431,
+              "id": 3559,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3423,
+                  "id": 3551,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "contractAddress",
                   "nameLocation": "125:15:14",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3432,
+                  "scope": 3560,
                   "src": "117:23:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -130,7 +130,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3422,
+                    "id": 3550,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "117:7:14",
@@ -144,13 +144,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3426,
+                  "id": 3554,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "supportedChains",
                   "nameLocation": "157:15:14",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3432,
+                  "scope": 3560,
                   "src": "150:22:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -160,7 +160,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 3424,
+                      "id": 3552,
                       "name": "uint",
                       "nodeType": "ElementaryTypeName",
                       "src": "150:4:14",
@@ -169,7 +169,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 3425,
+                    "id": 3553,
                     "nodeType": "ArrayTypeName",
                     "src": "150:6:14",
                     "typeDescriptions": {
@@ -181,13 +181,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3428,
+                  "id": 3556,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "creator",
                   "nameLocation": "190:7:14",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3432,
+                  "scope": 3560,
                   "src": "182:15:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -196,7 +196,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3427,
+                    "id": 3555,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "182:7:14",
@@ -210,13 +210,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3430,
+                  "id": 3558,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "chainId",
                   "nameLocation": "212:7:14",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3432,
+                  "scope": 3560,
                   "src": "207:12:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -225,7 +225,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3429,
+                    "id": 3557,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "207:4:14",
@@ -244,23 +244,23 @@
           {
             "anonymous": false,
             "eventSelector": "f2b290a76feb54be358b555507421d765609171aefa0646f109a653228ff81b8",
-            "id": 3438,
+            "id": 3566,
             "name": "NftMinted",
             "nameLocation": "237:9:14",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 3437,
+              "id": 3565,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3434,
+                  "id": 3562,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "contractAddress",
                   "nameLocation": "255:15:14",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3438,
+                  "scope": 3566,
                   "src": "247:23:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -269,7 +269,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3433,
+                    "id": 3561,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "247:7:14",
@@ -283,13 +283,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3436,
+                  "id": 3564,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "tokenID",
                   "nameLocation": "277:7:14",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3438,
+                  "scope": 3566,
                   "src": "272:12:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -298,7 +298,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3435,
+                    "id": 3563,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "272:4:14",
@@ -315,7 +315,7 @@
             "src": "231:55:14"
           }
         ],
-        "scope": 3440,
+        "scope": 3568,
         "src": "69:219:14",
         "usedErrors": []
       }
@@ -328,7 +328,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-11T11:08:32.255Z",
+  "updatedAt": "2022-12-11T18:48:09.894Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

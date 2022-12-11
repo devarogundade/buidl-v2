@@ -32,6 +32,7 @@ contract CrossArt {
         uint chainId;
         string cover;
         string avatar;
+        address creator;
     }
 
     receive() external payable {}
@@ -75,7 +76,8 @@ contract CrossArt {
             mintPrice,
             _thisChainId,
             cover,
-            avatar
+            avatar,
+            nft.creator()
         );
 
         emit Events.NftDeployed(
@@ -90,7 +92,7 @@ contract CrossArt {
         MultiERC721 nft = MultiERC721(contractAddress);
         Collection memory collection = collections[contractAddress];
 
-        if (msg.sender != nft.getCreator()) {
+        if (msg.sender != nft.creator()) {
             require(
                 msg.value >= collection.mintPrice,
                 "Insuficient Mint Amount"
@@ -128,12 +130,12 @@ contract CrossArt {
         );
 
         bytes memory data = abi.encode(
-            nft.getSourceAddress(),
+            nft.sourceAddress(),
             nft.tokenURI(tokenID),
-            nft.getName(), // related for non existing nft
-            nft.getSymbol(), // related for non existing nft
-            nft.getSupportedChains(), // related for non existing nft
-            nft.getCreator(), // related for non existing nft
+            nft.name(), // related for non existing nft
+            nft.symbol(), // related for non existing nft
+            nft.supportedChains(), // related for non existing nft
+            nft.creator(), // related for non existing nft
             tokenID,
             nft.holderOf(tokenID)
         );
