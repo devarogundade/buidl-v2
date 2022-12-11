@@ -14,6 +14,7 @@ contract MultiERC721 is ERC721 {
     string private baseURIextended;
 
     uint private _primaryChain;
+    address private _primaryAddress;
     uint[] public _supportedChains;
 
     // keeps track of each nft current chain
@@ -31,8 +32,28 @@ contract MultiERC721 is ERC721 {
         _supportedChains = supportedChains;
     }
 
+    function getName() public view returns (string calldata) {
+        return name;
+    }
+
+    function getSymbol() public view returns (string calldata) {
+        return symbol;
+    }
+
     function getCreator() public view returns (address) {
         return _creator;
+    }
+
+    function getSourceAddress() public view returns (address) {
+        return _primaryAddress;
+    }
+
+    function getSupportedChains() public view returns (uint[] memory) {
+        return _supportedChains;
+    }
+
+    function setSourceAddress(address sourceAddress) public {
+        _primaryAddress = sourceAddress;
     }
 
     function mint(
@@ -61,11 +82,16 @@ contract MultiERC721 is ERC721 {
     }
 
     function isChainSupported(uint destChain) public view returns (bool) {
+        if (_primaryChain == destChain) {
+            return true;
+        }
+
         for (uint index = 0; index < _supportedChains.length; index++) {
             if (_supportedChains[index] == destChain) {
                 return true;
             }
         }
+
         return false;
     }
 

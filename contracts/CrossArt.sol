@@ -21,7 +21,7 @@ contract CrossArt {
     // nft contract address => collection metadata
     mapping(address => Collection) public collections;
 
-    // mapping nft contractAddress from
+    // mapping nft source chain address to this chain address
     mapping(address => address) private nftMaps;
 
     struct Collection {
@@ -30,14 +30,17 @@ contract CrossArt {
         bool isWhiteSystem;
         uint256 mintPrice;
         uint chainId;
+        string cover;
+        string avatar;
     }
 
     receive() external payable {}
 
     fallback() external payable {}
 
-    constructor(address anycallcontract) {
+    constructor(address anycallcontract, uint chainId) {
         _anycallcontract = anycallcontract;
+        _thisChainId = chainId;
         _deployer = msg.sender;
     }
 
@@ -48,7 +51,9 @@ contract CrossArt {
         address[] memory whiteList,
         address[] memory blackList,
         bool isWhiteSystem,
-        uint256 mintPrice
+        uint256 mintPrice,
+        string memory cover,
+        string memory avatar
     ) public {
         MultiERC721 nft = new MultiERC721(
             name,
@@ -58,12 +63,19 @@ contract CrossArt {
             msg.sender
         );
 
+        // set the nft source address
+        nft.setSourceAddress(address(nft));
+
+        nftMaps[address(nft)] = address(nft);
+
         collections[address(nft)] = Collection(
             whiteList,
             blackList,
             isWhiteSystem,
             mintPrice,
-            _thisChainId
+            _thisChainId,
+            cover,
+            avatar
         );
 
         emit Events.NftDeployed(
@@ -115,11 +127,13 @@ contract CrossArt {
             "you cant bridge this token"
         );
 
-        string memory uri = nft.tokenURI(tokenID);
-
         bytes memory data = abi.encode(
-            address(nft),
-            uri,
+            nft.getSourceAddress(),
+            nft.tokenURI(tokenID),
+            nft.getName(), // related for non existing nft
+            nft.getSymbol(), // related for non existing nft
+            nft.getSupportedChains(), // related for non existing nft
+            nft.getCreator(), // related for non existing nft
             tokenID,
             nft.holderOf(tokenID)
         );
@@ -144,17 +158,49 @@ contract CrossArt {
         bytes memory _data
     ) external returns (bool success, bytes memory result) {
         (
-            address contractAddress,
+            address sourceAddress,
             string memory uri,
+            string memory name, // related for non existing nft
+            string memory symbol, // related for non existing nft
+            uint[] memory supportedChains, // related for non existing nft
+            address creator, // related for non existing nft
             uint256 tokenID,
             address holder
-        ) = abi.decode(_data, (address, string, uint256, address));
+        ) = abi.decode(
+                _data,
+                (
+                    address,
+                    string,
+                    string,
+                    string,
+                    uint[],
+                    address,
+                    uint256,
+                    address
+                )
+            );
 
-        uint[] memory sc;
+        bool existing = nftMaps[sourceAddress] != address(0);
 
-        // if (!exists) {
-        MultiERC721 nft = new MultiERC721("Sample", "SMP", sc, 1, address(0));
+        MultiERC721 nft;
 
+        if (existing) {
+            nft = MultiERC721(nftMaps[sourceAddress]);
+        } else {
+            nft = new MultiERC721(
+                name,
+                symbol,
+                supportedChains,
+                _thisChainId,
+                creator
+            );
+
+            // set the nft source address
+            nft.setSourceAddress(sourceAddress);
+            nftMaps[sourceAddress] = address(nft);
+        }
+
+        nft.mint(uri, holder, tokenID);
 
         success = true;
         result = "";

@@ -1,0 +1,26 @@
+[{
+    "name": "Goerli",
+    "chainId": "5",
+    "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+    "address": "0x965f84D915a9eFa2dD81b653e3AE736555d945f4"
+}, {
+    "name": "BNB Testnet",
+    "chainId": "97",
+    "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+    "address": "0xcBd52F7E99eeFd9cD281Ea84f3D903906BB677EC"
+}, {
+    "name": "Fantom Testnet",
+    "chainId": "4002",
+    "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/3513.png",
+    "address": "0xfCea2c562844A7D385a7CB7d5a79cfEE0B673D99"
+}, {
+    "name": "Avalanche Fuji Testnet",
+    "chainId": "43113",
+    "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png",
+    "address": "0x461d52769884ca6235b685ef2040f47d30c94eb5"
+}, {
+    "name": "Mumbai",
+    "chainId": "8001",
+    "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png",
+    "address": ""
+}]
