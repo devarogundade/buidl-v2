@@ -105,7 +105,7 @@ export default {
             document.getElementById('avatar').src = url
             this.avatarFile = file
         },
-        create: function () {
+        create: async function () {
             if (this.creating) return
             this.creating = false
 
