@@ -17,7 +17,7 @@
 
                 <div class="edit">
                     <p class="label">About Collection</p>
-                    <input type="text" v-model="email" placeholder="Simple Art of People" maxlength="45">
+                    <input type="text" v-model="about" placeholder="Simple Art of People" maxlength="145">
                 </div>
 
                 <div class="edit">
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="sign_up" v-if="!creating" v-on:click="create()">Create</div>
-                <div class="sign_up" v-else>Please wait..</div>
+                <div class="sign_up" v-else><TinyProgress /></div>
             </div>
 
         </div>
@@ -52,21 +52,17 @@ export default {
         return {
             //name
             name: '',
-            errorName: null,
             cover: '/images/placeholder.webp',
             avatar: '/images/placeholder.webp',
             // chains
             chains: chains,
             selectedChains: [],
             // email
-            email: '',
-            errorEmail: null,
+            about: '',
             // telegram
             telegram: '',
-            errorTelegram: null,
             // work
             work: '',
-            errorWork: null,
             // signing
             creating: false,
             coverFile: null,

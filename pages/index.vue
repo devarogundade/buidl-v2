@@ -1,6 +1,9 @@
 <template>
 <div class="index">
   <Hero />
+  <CreateHero />
+  <BridgeHero />
+  <InsuranceHero />
 </div>
 </template>
 

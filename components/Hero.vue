@@ -9,7 +9,7 @@
             </h3>
             <p class="hero_subtitle">Create NFTs Collection that Works On Across Multiple Chain</p>
             <div class="action">
-                <router-link to="/">
+                <router-link to="/create">
                     <div class="get_started">Create NFT Collection</div>
                 </router-link>
             </div>
