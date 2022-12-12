@@ -7,7 +7,7 @@ const Authenticate = {
                 method: 'eth_requestAccounts'
             });
 
-            await this.switchToPolygonTestnet()
+            await this.switchToFantomTestnet()
 
             const accounts = await ethereum.enable();
             return {
@@ -20,6 +20,35 @@ const Authenticate = {
                 message: 'Failed to Authenticate',
                 error: error,
                 status: false
+            }
+        }
+    },
+    switchToFantomTestnet: async function() {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0xfa2' }],
+            });
+        } catch (error) {
+            if (error.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [{
+                            chainId: '0xfa2',
+                            chainName: 'Fantom - Testnet',
+                            nativeCurrency: {
+                                name: 'Fantom',
+                                symbol: 'FTM',
+                                decimals: 18
+                            },
+                            blockExplorerUrls: ['https://testnet.ftmscan.com'],
+                            rpcUrls: ['https://fantom-testnet.public.blastapi.io'],
+                        }, ],
+                    });
+                } catch (addError) {
+                    console.error(addError);
+                }
             }
         }
     },

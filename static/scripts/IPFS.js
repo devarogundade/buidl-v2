@@ -5,7 +5,7 @@ const IPFS = {
         try {
             const options = {
                 method: 'POST',
-                url: '/ipfs/uploadFolder',
+                url: 'https://deep-index.moralis.io/api/v2/ipfs/uploadFolder',
                 headers: {
                     'accept': 'application/json',
                     'content-type': 'application/json',
@@ -15,10 +15,20 @@ const IPFS = {
             }
 
             const response = await axios.request(options)
+            console.log(response);
             return response.data[0].path
         } catch (error) {
+            console.log(error);
             return null
         }
+    },
+    toBase64: function(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = () => resolve(reader.result)
+            reader.onerror = error => reject(error)
+        })
     }
 }
 

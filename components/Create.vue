@@ -106,28 +106,31 @@ export default {
             this.creating = false
 
             if (this.name == '' ||
-                this.telegram == '' ||
-                this.email == '' ||
-                this.work == ''
+                this.about == ''
             ) {
                 return
             }
 
             this.creating = true
 
-            const url1 = await IPFS.upload("", this.coverFile)
-            const url2 = await IPFS.upload("", this.avatarFile)
+            const base1 = await IPFS.toBase64(this.coverFile)
+            const url1 = await IPFS.upload("cover", base1)
+
+            const base2 = await IPFS.toBase64(this.avatarFile)
+            const url2 = await IPFS.upload("avatar", base2)
 
             const address = (await Authenticate.getUserAddress(this.network)).address
             const response = await CrossArt.createCollection(
                 this.name,
                 this.about,
-                0,
-                this.supportedChains,
-                address,
+                // 0,
+                this.selectedChains,
                 url1,
-                url2
+                url2,
+                address
             )
+
+            this.creating = false
         }
     }
 }

@@ -30,8 +30,6 @@ contract CrossArt {
         bool isWhiteSystem;
         uint256 mintPrice;
         uint chainId;
-        string cover;
-        string avatar;
         address creator;
     }
 
@@ -45,46 +43,94 @@ contract CrossArt {
         _deployer = msg.sender;
     }
 
-    function deploy(
+    function createCollection(
         string memory name,
         string memory symbol,
         uint[] memory supportedChains,
-        address[] memory whiteList,
-        address[] memory blackList,
-        bool isWhiteSystem,
-        uint256 mintPrice,
         string memory cover,
         string memory avatar
     ) public {
         MultiERC721 nft = new MultiERC721(
             name,
             symbol,
+            cover,
+            avatar,
             supportedChains,
             _thisChainId,
             msg.sender
         );
 
         // set the nft source address
-        nft.setSourceAddress(address(nft));
+        address contractAddress = address(nft);
 
-        nftMaps[address(nft)] = address(nft);
+        nft.setSourceAddress(contractAddress);
+        nftMaps[contractAddress] = contractAddress;
 
-        collections[address(nft)] = Collection(
+        collections[contractAddress] = Collection(
+            collections[contractAddress].whiteList,
+            collections[contractAddress].blackList,
+            false,
+            0,
+            _thisChainId,
+            nft.creator()
+        );
+
+        emit Events.ArtCollection(
+            // metadata
+            nft.name(),
+            nft.symbol(),
+            nft.cover(),
+            nft.avatar(),
+            // addresses
+            nft.creator(),
+            contractAddress,
+            // sorting
+            collections[contractAddress].whiteList,
+            collections[contractAddress].blackList,
+            false,
+            0, // mintPrice
+            // chains
+            _thisChainId,
+            nft.supportedChains()
+        );
+    }
+
+    function updateCollection(
+        address[] memory whiteList,
+        address[] memory blackList,
+        bool isWhiteSystem,
+        uint256 mintPrice,
+        address contractAddress
+    ) public {
+        MultiERC721 nft = MultiERC721(contractAddress);
+        require(msg.sender == nft.creator(), "Unathorized");
+
+        collections[contractAddress] = Collection(
             whiteList,
             blackList,
             isWhiteSystem,
             mintPrice,
             _thisChainId,
-            cover,
-            avatar,
             nft.creator()
         );
 
-        emit Events.NftDeployed(
+        emit Events.ArtCollection(
+            // metadata
+            nft.name(),
+            nft.symbol(),
+            nft.cover(),
+            nft.avatar(),
+            // addresses
+            nft.creator(),
             address(nft),
-            supportedChains,
-            msg.sender,
-            _thisChainId
+            // sorting
+            whiteList,
+            blackList,
+            isWhiteSystem,
+            mintPrice,
+            // chains
+            _thisChainId,
+            nft.supportedChains()
         );
     }
 
@@ -110,7 +156,15 @@ contract CrossArt {
 
         uint tokenID = nft.mint(uri, msg.sender, 0);
 
-        emit Events.NftMinted(contractAddress, tokenID);
+        emit Events.ArtItem(
+            // id
+            tokenID,
+            // addresses
+            msg.sender,
+            address(nft),
+            // chain
+            _thisChainId
+        );
     }
 
     function bridge(
@@ -192,6 +246,8 @@ contract CrossArt {
             nft = new MultiERC721(
                 name,
                 symbol,
+                "",
+                "",
                 supportedChains,
                 _thisChainId,
                 creator

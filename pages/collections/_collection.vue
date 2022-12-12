@@ -16,7 +16,11 @@
                 </div>
             </div>
             <div class="nfts">
-                <div class="nft" v-for="index in 20" :key="index"></div>
+                <div class="nft" v-for="index in 20" :key="index">
+                    <div class="bg"></div>
+                    <div class="id">#4543</div>
+                    <img src="/images/placeholder.webp" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -25,7 +29,12 @@
 
 <script>
 export default {
-    layout: 'index'
+    layout: 'index',
+    data() {
+        return {
+            nfts: []
+        }
+    }
 }
 </script>
 
@@ -99,6 +108,26 @@ export default {
     border-radius: 16px;
     overflow: hidden;
     height: 320px;
+    position: relative;
     width: 264px;
+}
+
+.nft img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nft .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+}
+
+.nft .id {
+    
 }
 </style>

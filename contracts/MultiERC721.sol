@@ -13,6 +13,9 @@ contract MultiERC721 is ERC721 {
     mapping(uint256 => string) private tokenURIs;
     string private baseURIextended;
 
+    string private _cover;
+    string private _avatar;
+
     uint private _primaryChain;
     address private _primaryAddress;
     uint[] public _supportedChains;
@@ -23,13 +26,25 @@ contract MultiERC721 is ERC721 {
     constructor(
         string memory name,
         string memory symbol,
+        string memory cover_,
+        string memory avatar_,
         uint[] memory supportedChains_,
         uint primaryChain_,
         address creator_
     ) ERC721(name, symbol) {
+        _cover = cover_;
+        _avatar = avatar_;
         _creator = creator_;
         _primaryChain = primaryChain_;
         _supportedChains = supportedChains_;
+    }
+
+    function cover() public view returns (string memory) {
+        return _cover;
+    }
+
+    function avatar() public view returns (string memory) {
+        return _avatar;
     }
 
     function creator() public view returns (address) {

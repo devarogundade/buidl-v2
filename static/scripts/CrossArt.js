@@ -24,11 +24,11 @@ const CrossArt = {
     createCollection: async function(
         name,
         symbol,
-        supply = 0,
+        // about,
         supportedChains,
-        address,
         coverUrl,
-        avatarUrl
+        avatarUrl,
+        address
     ) {
         const instance = await this.getInstance()
 
@@ -39,15 +39,21 @@ const CrossArt = {
         }
 
         try {
-            const trx = await instance.deploy(name, symbol, supportedChains, {
-                from: address
-            })
+            const trx = await instance.deploy(
+                name,
+                symbol,
+                supportedChains,
+                coverUrl,
+                avatarUrl, {
+                    from: address
+                })
             return {
                 message: 'Transaction Hash',
                 trx: trx,
                 status: true
             }
         } catch (error) {
+            console.log(error);
             return {
                 message: 'Transaction failed',
                 error: error,
