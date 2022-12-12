@@ -3,15 +3,15 @@
     <div class="app-width">
         <div class="container">
             <div class="collections">
-                <router-link v-for="(collection, index) in collections" :to="`/collections/${collection.name}`" :key="index">
+                <router-link v-for="(collection, index) in collections" :to="`/collections/${collection.address}`" :key="index">
                     <div class="collection">
                         <div class="image">
                             <img class="cover" :src="collection.cover" alt="">
-                            <img class="avatar" :src="collection.image" alt="">
+                            <img class="avatar" :src="collection.avatar" alt="">
                         </div>
                         <div class="text">
                             <h3>{{ collection.name }}</h3>
-                            <p>{{ collection.description }}</p>
+                            <p>{{ collection.symbol }}</p>
                         </div>
                     </div>
                 </router-link>
@@ -30,28 +30,25 @@
 </template>
 
 <script>
+import Authenticate from '~/static/scripts/Authenticate'
+import Firestore from '~/static/scripts/Firestore'
+
 export default {
     data() {
         return {
-            collections: [{
-                    name: 'Simple Storage',
-                    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam commodi laborum sit.',
-                    image: 'https://opensea.io/static/images/learn-center//how-to-buy-nft.png',
-                    cover: 'https://opensea.io/static/images/learn-center//how-to-buy-nft.png'
-                },
-                {
-                    name: 'Simple Storage',
-                    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam commodi laborum sit.',
-                    image: 'https://opensea.io/static/images/learn-center//how-to-create-nft.png',
-                    cover: 'https://opensea.io/static/images/learn-center//how-to-create-nft.png'
-                },
-                {
-                    name: 'Simple Storage',
-                    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam commodi laborum sit.',
-                    image: 'https://opensea.io/static/images/learn-center//what-are-gas-fees.png',
-                    cover: 'https://opensea.io/static/images/learn-center//what-are-gas-fees.png'
-                }
-            ]
+            collections: []
+        }
+    },
+    created() {
+        this.getCollections()
+    },
+    methods: {
+        getCollections: async function () {
+            const address = (await Authenticate.getUserAddress()).address
+            this.fetching = true
+
+            this.collections = await Firestore.fetchAllWhere("collections", "creator", "==", address)
+            this.fetching = false
         }
     }
 }

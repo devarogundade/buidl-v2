@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, query, where } from "firebase/firestore";
 
 const dotenv = require("dotenv")
 dotenv.config()
@@ -47,7 +47,23 @@ const Firestore = {
         } catch (error) {
             return []
         }
-    }
+    },
+    fetchAllWhere: async function(_collection, key, sign, value) {
+        try {
+            const result = []
+
+            const _query = query(collection(this.db, _collection), where(key, sign, value));
+            const snapshot = await getDocs(_query)
+
+            snapshot.forEach(document => {
+                result.push(document.data())
+            });
+
+            return result
+        } catch (error) {
+            return []
+        }
+    },
 }
 
 export default Firestore
