@@ -1,14 +1,14 @@
 <template>
 <section>
     <div class="app-width">
-        <div class="form">
+        <div class="form" v-if="nft">
             <div class="nft">
                 <div class="image">
-                    <img :src="nft.image" alt="">
+                    <img :src="toJson(nft.metadata).image" alt="">
                 </div>
                 <div class="text">
-                    <h3 class="name">Sample Storage</h3>
-                    <p class="id">#49483</p>
+                    <h3 class="name">{{ toJson(nft.metadata).name }}</h3>
+                    <p class="id"># {{ nft.token_id }}</p>
                 </div>
                 <i class="fi fi-rr-angle-right"></i>
             </div>
@@ -17,7 +17,6 @@
                 <div class="chain">
                     <img :src="findChain($route.query.chain).image" alt="">
                     <p>{{ findChain($route.query.chain).name }}</p>
-                    <!-- <i class="fi fi-rr-angle-down"></i> -->
                 </div>
             </div>
             <div class="from">
@@ -41,23 +40,34 @@
 
 <script>
 import chains from "~/static/chains.json"
+import NFT from '~/static/scripts/NFT'
 export default {
     data() {
         return {
             chains: chains,
             showChains: false,
-            nft: {
-                chainId: 4002,
-                image: "https://opensea.io/static/images/learn-center//how-to-create-nft.png"
-            }
+            nft: null
         }
     },
+    created() {
+        this.getItem()
+    },
     methods: {
+        getItem: async function() {
+            this.nft = await NFT.getNft(
+                this.$route.params.item,
+                this.$route.params.collection.toLowerCase(),
+                this.findChain("43113").slug
+            )
+        },
         findChain: function (id) {
             return this.chains.filter(chain => chain.chainId == id)[0]
         },
         findNextChain: function (id) {
             return this.chains.filter(chain => chain.chainId != id)[0]
+        },
+        toJson: function(value) {
+            return JSON.parse(value)
         }
     }
 }

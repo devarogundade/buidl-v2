@@ -15,7 +15,7 @@
                 </div>
                 <div class="div">
                     <router-link v-if="isCreator" :to="`/collections/${$route.params.collection}/new-art`">
-                        <div class="button">New Art</div>
+                        <div class="button">New NFT</div>
                     </router-link>
                     <div class="button" v-else>Mint</div>
                 </div>
@@ -77,7 +77,7 @@ export default {
         getItems: async function () {
             const nfts = await NFT.getNftsFromContract(
                 this.$route.params.collection,
-                "avalanche testnet"
+                this.findChain("43113").slug
             )
 
             if (nfts) {
