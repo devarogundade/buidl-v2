@@ -26,10 +26,10 @@ section {
 }
 
 .tag {
-    background: #fff;
+    background: #3d392a;
+    color: #f9f6ed;
     border-radius: 20px;
     padding: 10px 20px;
-    box-shadow: 0 0 10px #ccc;
     font-size: 16px;
     width: fit-content;
 }
@@ -45,6 +45,7 @@ section {
     gap: 100px;
     justify-content: space-between;
     align-items: center;
+    color: #fff;
 }
 
 .text>div {
@@ -61,6 +62,7 @@ section {
 .text p {
     margin-top: 20px;
     font-size: 18px;
+    opacity: 0.8;
 }
 
 .action {
@@ -80,7 +82,7 @@ section {
 
 .image {
     width: 100%;
-    background: rgb(219, 180, 252);
+    background: rgba(255, 255, 255, 0.055);
     border-radius: 10px;
     margin-top: 60px;
     padding: 60px;

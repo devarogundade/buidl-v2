@@ -14,10 +14,7 @@
                             <router-link :class="$route.name == 'index' ? 'active' : ''" to="/">Home</router-link>
                         </li>
                         <li>
-                            <router-link :class="$route.name == 'collections' ? 'active' : ''" to="/collections">My Arts</router-link>
-                        </li>
-                        <li>
-                            <router-link :class="$route.name == 'bridge' ? 'active' : ''" to="/bridge">NFT Bridge</router-link>
+                            <router-link :class="$route.name.startsWith('collections') ? 'active' : ''" to="/collections">Collections</router-link>
                         </li>
                         <li>
                             <router-link :class="$route.name == 'nft-insurance' ? 'active' : ''" to="/nft-insurance">NFT Insurance</router-link>
@@ -41,13 +38,6 @@
                     <span></span>
                     <span></span>
                 </div>
-                <!-- <div class="network">
-                    <label class="switch">
-                        <input v-model="network" v-on:change="switchNetwork($event)" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <p>{{ network ? $t('dappheader.mn') : $t('dappheader.tn') }}</p>
-                </div> -->
             </div>
         </div>
     </div>
@@ -60,8 +50,6 @@ export default {
     data() {
         return {
             address: null,
-            // network: Network.current() == 'true',
-            // language: false
         }
     },
     created() {
@@ -78,15 +66,7 @@ export default {
             if (response.status) {
                 this.address = response.address
             }
-        },
-        // switchNetwork: async function (event) {
-        //     Network.updateNetwork(event.target.checked)
-        //     const response = await Authenticate.getUserAddress(this.network)
-        //     if (response.status) {
-        //         this.address = response.address
-        //     }
-        //     location.reload()
-        // }
+        }
     },
 }
 </script>
@@ -99,8 +79,7 @@ section {
     top: 0;
     left: 0;
     z-index: 10;
-    background: #25231a;
-    box-shadow: 0 0 10px #5e594a;
+    background: #3d392a;
     height: 80px;
 }
 

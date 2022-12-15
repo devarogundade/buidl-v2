@@ -15,15 +15,15 @@
             <div class="from">
                 <p>Current chain</p>
                 <div class="chain">
-                    <img :src="findChain(nft.chainId).image" alt="">
-                    <p>{{ findChain(nft.chainId).name }}</p>
+                    <img :src="findChain($route.query.chain).image" alt="">
+                    <p>{{ findChain($route.query.chain).name }}</p>
                     <!-- <i class="fi fi-rr-angle-down"></i> -->
                 </div>
             </div>
             <div class="from">
                 <p>Destination chain</p>
                 <div class="chain" v-on:click="showChains = true">
-                   <img :src="findNextChain(nft.chainId).image" alt="">
+                    <img :src="findNextChain(nft.chainId).image" alt="">
                     <p>{{ findNextChain(nft.chainId).name }}</p>
                     <i class="fi fi-rr-angle-down"></i>
                 </div>
@@ -74,8 +74,8 @@ export default {
 
 .form {
     width: 400px;
-    border-radius: 20px;
-    border: 1px #ccc solid;
+    border-radius: 10px;
+    background: #3d392a;
     overflow: hidden;
 }
 
@@ -94,7 +94,8 @@ export default {
 }
 
 .nft .text {
-    width: 80%;
+    width: 70%;
+    color: #f9f6ed;
 }
 
 .nft img {
@@ -116,7 +117,7 @@ export default {
 }
 
 .from {
-    border-top: 1px #ccc solid;
+    border-top: 6px #333025 solid;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -146,13 +147,14 @@ export default {
 
 .from>p {
     font-weight: 600;
+    color: #f9f6ed;
 }
 
 .action {
     height: 60px;
     background: linear-gradient(90deg, #F64B4B -43.68%, #F3CB34 72.76%);
     border-radius: 8px;
-    width: 300px;
+    width: 400px;
     display: flex;
     align-items: center;
     justify-content: center;

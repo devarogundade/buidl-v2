@@ -7,7 +7,8 @@ const Authenticate = {
                 method: 'eth_requestAccounts'
             });
 
-            await this.switchToFantomTestnet()
+            // await this.switchToFantomTestnet()
+            await this.switchToAvalancheTestnet()
 
             const accounts = await ethereum.enable();
             return {
@@ -80,7 +81,36 @@ const Authenticate = {
                 }
             }
         }
-    }
+    },
+    switchToAvalancheTestnet: async function() {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0xa869' }],
+            });
+        } catch (error) {
+            if (error.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [{
+                            chainId: '0xa869',
+                            chainName: 'Avalanche - Testnet',
+                            nativeCurrency: {
+                                name: 'Avalanche',
+                                symbol: 'AVAX',
+                                decimals: 18
+                            },
+                            blockExplorerUrls: ['https://testnet.snowtrace.io'],
+                            rpcUrls: ['https://ava-testnet.public.blastapi.io/ext/bc/C/rpc'],
+                        }, ],
+                    });
+                } catch (addError) {
+                    console.error(addError);
+                }
+            }
+        }
+    },
 }
 
 export default Authenticate

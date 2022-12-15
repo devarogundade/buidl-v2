@@ -9,7 +9,9 @@
             <div class="text">
                 <div>
                     <h3 class="name">{{ collection.name }} ({{ collection.symbol }})</h3>
-                    <p class="desc">{{ collection.symbol }}</p>
+                    <a target="_blank" :href="`https://testnets.opensea.io/assets/avalanche-fuji/${$route.params.collection}/1`">
+                        <p class="link">View on Opensea <i class="fi fi-rr-link"></i></p>
+                    </a>
                 </div>
                 <div class="div">
                     <router-link v-if="isCreator" :to="`/collections/${$route.params.collection}/new-art`">
@@ -19,10 +21,18 @@
                 </div>
             </div>
             <div class="nfts">
-                <div class="nft" v-for="index in 20" :key="index">
-                    <div class="bg"></div>
-                    <div class="id">#4543</div>
-                    <img src="/images/placeholder.webp" alt="">
+                <div class="nft" v-for="(nft, index) in nfts" :key="index">
+                    <router-link :to="`/bridge/${$route.params.collection}/${nft.token_id}?chain=${nft.chainId}`">
+                        <img :src="findChain(nft.chainId).image" alt="" class="chain">
+                    </router-link>
+                    <div class="metadata">
+                        <h3 class="name">{{ toJson(nft.metadata).name }}</h3>
+                        <p class="id"># {{ nft.token_id }}</p>
+                    </div>
+                    <img class="thumbnail" :src="toJson(nft.metadata).image" alt="">
+                    <a target="_blank" :href="`https://testnets.opensea.io/assets/avalanche-fuji/${$route.params.collection}/${nft.token_id}`">
+                        <div class="view">View Item</div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -31,13 +41,16 @@
 </template>
 
 <script>
+import chains from '~/static/chains.json';
 import Authenticate from '~/static/scripts/Authenticate'
 import Firestore from '~/static/scripts/Firestore'
+import NFT from '~/static/scripts/NFT'
 
 export default {
     layout: 'index',
     data() {
         return {
+            chains: chains,
             collection: null,
             isCreator: false,
             nfts: []
@@ -45,8 +58,12 @@ export default {
     },
     created() {
         this.getCollection()
+        this.getItems()
     },
     methods: {
+        findChain: function (id) {
+            return this.chains.filter(chain => chain.chainId == id)[0]
+        },
         getCollection: async function () {
             const address = (await Authenticate.getUserAddress()).address
 
@@ -58,7 +75,20 @@ export default {
             this.isCreator = this.collection.creator == address.toUpperCase()
         },
         getItems: async function () {
+            const nfts = await NFT.getNftsFromContract(
+                this.$route.params.collection,
+                "avalanche testnet"
+            )
 
+            if (nfts) {
+                nfts.forEach(nft => {
+                    nft.chainId = "43113"
+                    this.nfts.push(nft)
+                })
+            }
+        },
+        toJson: function (value) {
+            return JSON.parse(value)
         }
     }
 }
@@ -103,7 +133,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    color: white;
+    color: #fff;
 }
 
 .text .button {
@@ -131,34 +161,67 @@ export default {
 }
 
 .nft {
-    border-radius: 16px;
+    border-radius: 10px;
     overflow: hidden;
-    height: 320px;
     position: relative;
-    width: 264px;
+    width: 280px;
 }
 
-.nft img {
+.nft .thumbnail {
     width: 100%;
-    height: 100%;
+    height: 360px;
     object-fit: cover;
 }
 
-.nft .bg {
+.nft .metadata {
     position: absolute;
     width: 100%;
-    height: 100%;
-    top: 0;
+    bottom: 50px;
     left: 0;
-    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+    padding: 10px;
+    padding-top: 100px;
+    gap: 20px;
+    color: #fff;
+    background-image: linear-gradient(to bottom, transparent, #ca9f02);
+    font-weight: 600;
+}
+
+.nft .name {
+    font-size: 20px;
 }
 
 .nft .id {
-    position: absolute;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.view {
+    height: 50px;
     width: 100%;
-    bottom: 0;
-    left: 0;
-    padding: 20px;
+    background: #695200;
+    color: #fff8dd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
     font-weight: 600;
+}
+
+.chain {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+    background: #333025;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ca9f02;
 }
 </style>

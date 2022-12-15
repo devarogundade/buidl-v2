@@ -10,7 +10,10 @@
             <p class="hero_subtitle">Create NFTs Collection that Works On Across Multiple Chain <br> With Zero Knowledge</p>
             <div class="action">
                 <router-link to="/create">
-                    <div class="get_started">Create NFT Collection</div>
+                    <div class="get_started">
+                        <i class="fi fi-rr-plus"></i>
+                        Create Your NFT Collection
+                    </div>
                 </router-link>
             </div>
             <div class="powered">
@@ -78,19 +81,17 @@ section {
 }
 
 .get_started {
-    width: 300px;
+    width: 340px;
     height: 60px;
     border-radius: 8px;
     display: flex;
     align-items: center;
+    gap: 20px;
     justify-content: center;
     font-size: 18px;
-    font-weight: 600;
     margin-top: 100px;
-    background: #efe8f1;
-    color: #660180;
-    box-shadow: 2px 2px #8708A7;
-    border: 1px solid #8708A7;
+    color: #F3CB34;
+    border: 4px solid #3d392a;
 }
 
 .powered {

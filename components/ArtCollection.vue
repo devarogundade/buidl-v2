@@ -5,13 +5,15 @@
             <div class="collections">
                 <router-link v-for="(collection, index) in collections" :to="`/collections/${collection.address}`" :key="index">
                     <div class="collection">
+                        <div class="chains">
+                            <img v-for="id in collection.supportedChains" :key="id" :src="findChain(id).image" alt="">
+                        </div>
                         <div class="image">
                             <img class="cover" :src="collection.cover" alt="">
                             <img class="avatar" :src="collection.avatar" alt="">
                         </div>
                         <div class="text">
-                            <h3>{{ collection.name }}</h3>
-                            <p>{{ collection.symbol }}</p>
+                            <h3>{{ collection.name }} ({{ collection.symbol }})</h3>
                         </div>
                     </div>
                 </router-link>
@@ -20,7 +22,7 @@
                 <router-link to="/create">
                     <div class="button">
                         <i class="fi fi-rr-plus"></i>
-                        <p>Create New Art Collection</p>
+                        <p>Create New NFT Collection</p>
                     </div>
                 </router-link>
             </div>
@@ -30,24 +32,27 @@
 </template>
 
 <script>
+import chains from '~/static/chains.json'
 import Authenticate from '~/static/scripts/Authenticate'
 import Firestore from '~/static/scripts/Firestore'
 
 export default {
     data() {
         return {
-            collections: []
+            collections: [],
+            chains: chains
         }
     },
     created() {
         this.getCollections()
     },
     methods: {
+        findChain: function (id) {
+            return this.chains.filter(chain => chain.chainId == id)[0]
+        },
         getCollections: async function () {
             const address = (await Authenticate.getUserAddress()).address
             this.fetching = true
-
-            console.log('here');
 
             this.collections = await Firestore.fetchAllWhere(
                 "collections",
@@ -76,9 +81,30 @@ export default {
 
 .collection {
     width: 360px;
-    border-radius: 20px;
-    background: #333;
+    border-radius: 10px;
+    background: #3d392a;
     overflow: hidden;
+    position: relative;
+}
+
+.collection .chains {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background: #3d392a;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.chains img {
+    width: 24px;
+    height: 24px;
+    border-radius: 20px;
+    object-fit: cover;
 }
 
 .collection .image {
@@ -113,11 +139,6 @@ export default {
     font-size: 22px;
 }
 
-.collection .text p {
-    opacity: 0.8;
-    font-size: 14px;
-}
-
 .create {
     margin-top: 100px;
     display: flex;
@@ -125,14 +146,15 @@ export default {
 }
 
 .button {
-    width: 280px;
+    width: 340px;
     height: 60px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 20px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    color: #000;
+    justify-content: center;
+    font-size: 18px;
+    color: #F3CB34;
+    border: 4px solid #3d392a;
 }
 </style>

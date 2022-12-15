@@ -30,6 +30,11 @@ section {
     width: 100%;
 }
 
+.nuxt-progress {
+    background: #fff;
+    height: 6px;
+}
+
 .app-width {
     width: 1400px;
     max-width: 90%;

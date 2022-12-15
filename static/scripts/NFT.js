@@ -1,12 +1,12 @@
 import axios from "axios"
 
 const NFT = {
-    getNftsFromContract: async function(address) {
+    getNftsFromContract: async function(address, chain) {
         try {
             const options = {
-                method: 'POST',
+                method: 'GET',
                 url: `https://deep-index.moralis.io/api/v2/nft/${address}`,
-                params: { chain: 'eth', format: 'decimal' },
+                params: { chain: chain, format: 'decimal' },
                 headers: {
                     'accept': 'application/json',
                     'content-type': 'application/json',
@@ -16,7 +16,7 @@ const NFT = {
 
             const response = await axios.request(options)
             console.log(response);
-            return response.data
+            return response.data.result
         } catch (error) {
             console.log(error);
             return null
