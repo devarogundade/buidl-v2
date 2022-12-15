@@ -70,9 +70,11 @@ const CrossArt = {
         }
 
         try {
-            const trx = await instance.mint(uri, contractAddress, {
-                from: address
-            })
+            const trx = await instance.mint(
+                uri,
+                contractAddress, {
+                    from: address
+                })
             return {
                 message: 'Transaction Hash',
                 trx: trx,
@@ -97,9 +99,12 @@ const CrossArt = {
         }
 
         try {
-            const trx = await instance.bridge(tokenId, toChain, contractAddress, {
-                from: address
-            })
+            const trx = await instance.bridge(
+                tokenId,
+                contractAddress,
+                toChain, {
+                    from: address
+                })
             return {
                 message: 'Transaction Hash',
                 trx: trx,
