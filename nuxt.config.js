@@ -15,7 +15,7 @@ export default {
     },
 
     head: {
-        title: 'CrossArt | A Cross Chain NFT Solution',
+        title: 'Buidl | A Cross Chain NFT Solution',
         htmlAttrs: {
             lang: 'en'
         },
