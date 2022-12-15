@@ -24,7 +24,6 @@ const CrossArt = {
     createCollection: async function(
         name,
         symbol,
-        // about,
         supportedChains,
         coverUrl,
         avatarUrl,
@@ -39,7 +38,7 @@ const CrossArt = {
         }
 
         try {
-            const trx = await instance.deploy(
+            const trx = await instance.createCollection(
                 name,
                 symbol,
                 supportedChains,
@@ -61,7 +60,7 @@ const CrossArt = {
             }
         }
     },
-    mint: async function(uri, address, contractAddress) {
+    createArt: async function(uri, address, contractAddress) {
         const instance = await this.getInstance()
 
         if (instance == null) return {
@@ -80,6 +79,7 @@ const CrossArt = {
                 status: true
             }
         } catch (error) {
+            console.log(error);
             return {
                 message: 'Transaction failed',
                 error: error,

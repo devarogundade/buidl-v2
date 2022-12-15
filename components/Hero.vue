@@ -3,11 +3,11 @@
     <div class="app-width">
         <div class="hero">
             <h3 class="hero_title">
-                CrossArt is A Cross Chain
-                <a href="/nft-mint"><span>Create NFTs</span></a>, <a href=""><span>Multiple Chains</span></a>
-                and <a href="/nft-insurance"><span>NFT Insurance</span></a>
+                Buidl is A Multi Chain
+                <a href="/collections"><span>NFT Creation</span></a>,
+                Tool <a href="/nft-insurance"><span>NFT Insurance</span></a>
             </h3>
-            <p class="hero_subtitle">Create NFTs Collection that Works On Across Multiple Chain</p>
+            <p class="hero_subtitle">Create NFTs Collection that Works On Across Multiple Chain <br> With Zero Knowledge</p>
             <div class="action">
                 <router-link to="/create">
                     <div class="get_started">Create NFT Collection</div>
@@ -16,7 +16,8 @@
             <div class="powered">
                 <p>Built With:</p>
                 <div class="images">
-                    <img src="/images/polygon.png" alt="">
+                    <img src="/images/multichain.webp" alt="">
+                    <img src="/images/moralis.png" alt="">
                 </div>
             </div>
         </div>
@@ -53,21 +54,22 @@ section {
     line-height: 75px;
     font-weight: 800;
     font-weight: 600;
-    background-image: linear-gradient(to top, #080053 0%, #020077 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #fff282 100%);
     background-clip: text;
     color: transparent;
     z-index: 1;
 }
 
 .hero_title span {
-    background-image: linear-gradient(#6973fc, #000986);
-    text-decoration: underline #000986 4px;
+    background-image: linear-gradient(to bottom, #ffffff 0%, #fff282 100%);
+    text-decoration: underline #fff282 4px;
 }
 
 .hero_subtitle {
     margin-top: 40px;
     font-size: 28px;
     font-weight: 600;
+    color: #fff;
 }
 
 .action {

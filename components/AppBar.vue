@@ -99,8 +99,8 @@ section {
     top: 0;
     left: 0;
     z-index: 10;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 10px #CCC;
+    background: #25231a;
+    box-shadow: 0 0 10px #5e594a;
     height: 80px;
 }
 
@@ -137,7 +137,7 @@ ul {
     display: flex;
     align-items: center;
     width: 100%;
-    background: rgb(205, 215, 248);
+    /* background: rgb(205, 215, 248); */
     border-radius: 26px;
     width: fit-content;
     padding: 4px;
@@ -146,10 +146,10 @@ ul {
 li a {
     font-size: 16px;
     font-weight: 600;
-    color: #010101;
     padding: 8px 20px;
     display: block;
     border-radius: 22px;
+    color: #fff;
 }
 
 li img {
@@ -162,8 +162,7 @@ li img {
 }
 
 li .active {
-    background: #000986;
-    color: #fff;
+    background: #867200;
 }
 
 .action {
@@ -171,7 +170,7 @@ li .active {
     border-radius: 30px;
     width: 240px;
     font-size: 20px;
-    background: #8708A7;
+    background: linear-gradient(90deg, #F64B4B -43.68%, #F3CB34 72.76%);
     font-size: 15px;
     font-weight: 600;
     display: flex;

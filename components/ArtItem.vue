@@ -1,18 +1,21 @@
 <template>
 <section>
     <div class="app-width">
-        <div class="collection">
+        <div class="collection" v-if="collection">
             <div class="image">
-                <img src="" alt="" class="cover">
-                <img src="" alt="" class="avatar">
+                <img :src="collection.cover" alt="" class="cover">
+                <img :src="collection.avatar" alt="" class="avatar">
             </div>
             <div class="text">
                 <div>
-                    <h3 class="name">Simple Storage</h3>
-                    <p class="desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, vitae delectus eius..</p>
+                    <h3 class="name">{{ collection.name }} ({{ collection.symbol }})</h3>
+                    <p class="desc">{{ collection.symbol }}</p>
                 </div>
                 <div class="div">
-                    <div class="button">Mint</div>
+                    <router-link v-if="isCreator" :to="`/collections/${$route.params.collection}/new-art`">
+                        <div class="button">New Art</div>
+                    </router-link>
+                    <div class="button" v-else>Mint</div>
                 </div>
             </div>
             <div class="nfts">
@@ -28,14 +31,32 @@
 </template>
 
 <script>
+import Authenticate from '~/static/scripts/Authenticate'
+import Firestore from '~/static/scripts/Firestore'
+
 export default {
     layout: 'index',
     data() {
         return {
+            collection: null,
+            isCreator: false,
             nfts: []
         }
     },
+    created() {
+        this.getCollection()
+    },
     methods: {
+        getCollection: async function () {
+            const address = (await Authenticate.getUserAddress()).address
+
+            this.collection = await Firestore.fetch(
+                "collections",
+                this.$route.params.collection
+            )
+
+            this.isCreator = this.collection.creator == address.toUpperCase()
+        },
         getItems: async function () {
 
         }
@@ -70,7 +91,7 @@ export default {
     bottom: -60px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px #fff solid;
+    border: 3px #333025 solid;
 }
 
 .name {
@@ -82,6 +103,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    color: white;
 }
 
 .text .button {
@@ -109,7 +131,6 @@ export default {
 }
 
 .nft {
-    border: 1px #ccc solid;
     border-radius: 16px;
     overflow: hidden;
     height: 320px;
@@ -133,6 +154,11 @@ export default {
 }
 
 .nft .id {
-
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    font-weight: 600;
 }
 </style>

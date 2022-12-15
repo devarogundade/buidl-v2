@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, doc, query, where } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, doc, query, where } from "firebase/firestore";
 
 const dotenv = require("dotenv")
 dotenv.config()
@@ -31,6 +31,7 @@ const Firestore = {
                 return null
             }
         } catch (error) {
+            console.log(error);
             return null
         }
     },
@@ -52,8 +53,10 @@ const Firestore = {
         try {
             const result = []
 
-            const _query = query(collection(this.db, _collection), where(key, sign, value));
+            const _query = query(collection(this.instance, _collection), where(key, sign, value));
             const snapshot = await getDocs(_query)
+
+            console.log(snapshot);
 
             snapshot.forEach(document => {
                 result.push(document.data())
@@ -61,6 +64,7 @@ const Firestore = {
 
             return result
         } catch (error) {
+            console.log(error);
             return []
         }
     },

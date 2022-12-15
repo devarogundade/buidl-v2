@@ -20,6 +20,10 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    background: #333025;
+}
+
 section {
     display: flex;
     justify-content: center;

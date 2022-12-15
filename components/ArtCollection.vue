@@ -47,7 +47,15 @@ export default {
             const address = (await Authenticate.getUserAddress()).address
             this.fetching = true
 
-            this.collections = await Firestore.fetchAllWhere("collections", "creator", "==", address)
+            console.log('here');
+
+            this.collections = await Firestore.fetchAllWhere(
+                "collections",
+                "creator",
+                "==",
+                address.toUpperCase()
+            )
+
             this.fetching = false
         }
     }
@@ -69,7 +77,7 @@ export default {
 .collection {
     width: 360px;
     border-radius: 20px;
-    border: 1px solid #ccc;
+    background: #333;
     overflow: hidden;
 }
 
@@ -92,13 +100,13 @@ export default {
     width: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px #fff solid;
+    border: 2px #333 solid;
 }
 
 .collection .text {
     margin-top: 20px;
     padding: 20px;
-    color: #000;
+    color: #fff;
 }
 
 .collection .text h3 {

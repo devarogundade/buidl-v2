@@ -12,12 +12,12 @@
 
                 <div class="edit">
                     <p class="label">Collection Name</p>
-                    <input type="email" v-model="name" placeholder="Simple Art" maxlength="45">
+                    <input type="email" v-model="name" placeholder="Simple Art" maxlength="30">
                 </div>
 
                 <div class="edit">
                     <p class="label">About Collection</p>
-                    <input type="text" v-model="about" placeholder="Simple Art of People" maxlength="145">
+                    <input type="text" v-model="symbol" placeholder="Symbol e.g SMP" maxlength="6">
                 </div>
 
                 <div class="edit">
@@ -29,7 +29,7 @@
 
                 <div class="edit">
                     <p class="label">Website Link</p>
-                    <input v-model="work" type="text" placeholder="https://www.example.com">
+                    <input v-model="link" type="text" placeholder="https://www.example.com">
                 </div>
 
                 <div class="sign_up" v-if="!creating" v-on:click="create()">Create</div>
@@ -57,13 +57,8 @@ export default {
             // chains
             chains: chains,
             selectedChains: [],
-            // email
-            about: '',
-            // telegram
-            telegram: '',
-            // work
-            work: '',
-            // signing
+            symbol: '',
+            link: '',
             creating: false,
             coverFile: null,
             avatarFile: null
@@ -119,11 +114,10 @@ export default {
             const base2 = await IPFS.toBase64(this.avatarFile)
             const url2 = await IPFS.upload("avatar", base2)
 
-            const address = (await Authenticate.getUserAddress(this.network)).address
+            const address = (await Authenticate.getUserAddress()).address
             const response = await CrossArt.createCollection(
                 this.name,
-                this.about,
-                // 0,
+                this.symbol,
                 this.selectedChains,
                 url1,
                 url2,
@@ -271,7 +265,7 @@ export default {
     bottom: -40px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px #fff solid;
+    border: 3px #333025 solid;
 }
 
 .image input {

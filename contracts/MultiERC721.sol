@@ -69,12 +69,14 @@ contract MultiERC721 is ERC721 {
         uint256 _tokenID
     ) public returns (uint) {
         uint _id;
-        if (_tokenID > 0) {
+
+        if (_tokenID == 0) {
             tokenID++;
             _id = tokenID;
         } else {
             _id = _tokenID;
         }
+
         _mint(to, _id);
         _setTokenURI(_id, uri);
         return _id;
