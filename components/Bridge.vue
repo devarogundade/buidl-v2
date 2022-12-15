@@ -10,7 +10,6 @@
                     <h3 class="name">{{ toJson(nft.metadata).name }}</h3>
                     <p class="id"># {{ nft.token_id }}</p>
                 </div>
-                <i class="fi fi-rr-angle-right"></i>
             </div>
             <div class="from">
                 <p>Current chain</p>
@@ -90,21 +89,24 @@ export default {
 }
 
 .nft {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
     cursor: pointer;
     user-select: none;
+    position: relative;
 }
 
 .nft .image {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 340px;
 }
 
 .nft .text {
-    width: 70%;
+    width: 100%;
+    padding: 10px;
+    padding-top: 180px;
+    position: absolute;
+    background-image: linear-gradient(to bottom, transparent, #3d392a);
+    bottom: 0;
+    left: 0;
     color: #f9f6ed;
 }
 
@@ -119,11 +121,12 @@ export default {
 }
 
 .nft .name {
-    font-size: 16px;
+    font-size: 30px;
 }
 
 .nft .id {
-    font-size: 14px;
+    font-size: 16px;
+    opacity: 0.8;
 }
 
 .from {
