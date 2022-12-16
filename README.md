@@ -27,7 +27,7 @@ A creator with suspicious activities and a high report rate is subjected to ban 
     A better approach to protect videos online is creating custom players to restrict access by other players, this is very common in streaming services like netflix,     etc.
 
 ## Revenue Model
-   `Basic $0`
+  `Basic $0`
 - up to 10 nft collections.
 - max of 1000 tokens per collection.
 - supports only ethereum, binance, and polygon chains.
