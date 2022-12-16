@@ -5,11 +5,11 @@
         <div class="sweeper">
             <div class="text">
                 <div>
-                    <h3>Create Your NFT Collection on Multiple Chains</h3>
+                    <h3>Move NFTs From Any Chain to Any Chain</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi rerum, suscipit reprehenderit temporibus expedita doloribus.</p>
                 </div>
                 <router-link to="/bridge">
-                    <div class="action">Bridge</div>
+                    <div class="action">Learn more</div>
                 </router-link>
             </div>
             <div class="image">
@@ -76,8 +76,6 @@ section {
     font-weight: 600;
     background: #e6e6e6;
     color: #010101;
-    box-shadow: 2px 2px #010101;
-    border: 1px solid #010101;
 }
 
 .image {

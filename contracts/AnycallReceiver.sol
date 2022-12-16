@@ -22,6 +22,7 @@ contract AnyCallReceiver {
             address creator, // related for non existing nft
             uint256 tokenID,
             address holder,
+            uint[] memory history,
             string memory cover,
             string memory avatar
         ) = abi.decode(
@@ -35,6 +36,7 @@ contract AnyCallReceiver {
                     address,
                     uint256,
                     address,
+                    uint[],
                     string,
                     string
                 )
@@ -49,6 +51,7 @@ contract AnyCallReceiver {
             creator,
             tokenID,
             holder,
+            history,
             cover,
             avatar
         );

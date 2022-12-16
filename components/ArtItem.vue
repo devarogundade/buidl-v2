@@ -1,7 +1,8 @@
 <template>
 <section>
-    <div class="app-width">
-        <div class="collection" v-if="collection">
+    <Progress v-if="fetching" />
+    <div class="app-width" v-else>
+        <div class="collection">
             <div class="image">
                 <img :src="collection.cover" alt="" class="cover">
                 <img :src="collection.avatar" alt="" class="avatar">
@@ -28,7 +29,7 @@
                     </router-link>
                     <div class="button" v-else>Mint</div>
 
-                    <div class="button share"><i class="fi fi-rr-arrow-up-from-square"></i></div>
+                    <div v-on:click="share()" class="button share"><i class="fi fi-rr-arrow-up-from-square"></i></div>
                 </div>
             </div>
             <div class="nfts">
@@ -65,6 +66,7 @@ export default {
             chains: chains,
             collection: null,
             isCreator: false,
+            fetching: true,
             nfts: []
         }
     },
@@ -79,12 +81,29 @@ export default {
         getCollection: async function () {
             const address = (await Authenticate.getUserAddress(Network.current())).address
 
+            this.fetching = true
+
             this.collection = await Firestore.fetch(
                 "collections",
                 this.$route.params.collection.toUpperCase()
             )
 
+            this.fetching = false
+
             this.isCreator = this.collection.creator == address.toUpperCase()
+        },
+        share: async function () {
+            const shareData = {
+                title: this.collection.name,
+                text: 'Visit my collection',
+                url: `https://build-v2.netlify.app/collection/${this.$route.params.collection}`
+            }
+
+            try {
+                await navigator.share(shareData);
+            } catch (error) {
+
+            }
         },
         getItems: async function () {
             const nfts = await NFT.getNftsFromContract(

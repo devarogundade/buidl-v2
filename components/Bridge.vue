@@ -1,6 +1,7 @@
 <template>
 <section>
-    <div class="app-width">
+    <Progress v-if="fetching" />
+    <div class="app-width" v-else>
         <div class="form" v-if="nft">
             <div class="nft">
                 <div class="image">
@@ -28,10 +29,15 @@
             </div>
         </div>
 
-        <div class="action" v-on:click="bridge()" v-if="!bridging">Bridge NFT</div>
-        <div class="action" v-else>
-            <TinyProgress />
-        </div>
+        <a v-if="isOwner">
+            <div class="action" v-on:click="bridge()" v-if="!bridging">Bridge NFT</div>
+            <div class="action" v-else>
+                <TinyProgress />
+            </div>
+        </a>
+        <a v-else>
+            <div class="action">You don't own this NFT!</div>
+        </a>
 
         <button v-on:click="test()">Add Chain</button>
     </div>
@@ -43,7 +49,7 @@
 <script>
 import chains from "~/static/chains.json"
 import Authenticate from '~/static/scripts/Authenticate'
-import CrossArt from '~/static/scripts/CrossArt'
+import AnycallCollection from '~/static/scripts/AnycallCollection'
 import Network from '~/static/scripts/Network'
 import NFT from '~/static/scripts/NFT'
 export default {
@@ -53,6 +59,8 @@ export default {
             showChains: false,
             nft: null,
             bridging: false,
+            fetching: true,
+            isOwner: false,
             to: null
         }
     },
@@ -62,11 +70,18 @@ export default {
     },
     methods: {
         getItem: async function () {
+            this.fetching = true
+
             this.nft = await NFT.getNft(
                 this.$route.params.item,
                 this.$route.params.collection.toLowerCase(),
                 this.findChain("43113").slug
             )
+
+            this.fetching = false
+
+            const address = (await Authenticate.getUserAddress(Network.current())).address
+            this.isOwner = this.nft.owner_of.toLowerCase() == address.toLowerCase()
         },
         findChain: function (id) {
             return this.chains.filter(chain => chain.chainId == id)[0]
@@ -85,7 +100,7 @@ export default {
 
             this.bridging = true
 
-            const response = await CrossArt.bridge(
+            const response = await AnycallCollection.bridge(
                 this.$route.params.item,
                 this.to.chainId,
                 address,
@@ -96,7 +111,7 @@ export default {
         },
         test: async function () {
             const address = (await Authenticate.getUserAddress(Network.current())).address
-            await CrossArt.addChain(4002, '0x0b17D258E1245a1191EB2bA4C505297dE89e7B09', address)
+            await AnycallCollection.addChain(4002, '0x0b17D258E1245a1191EB2bA4C505297dE89e7B09', address)
         }
     }
 }

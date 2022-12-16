@@ -13,12 +13,16 @@ contract MultiERC721 is ERC721 {
     mapping(uint256 => string) private tokenURIs;
     string private baseURIextended;
 
+    // collection metadata
     string private _cover;
     string private _avatar;
 
     uint private _primaryChain;
     address private _primaryAddress;
-    uint[] public _supportedChains;
+    uint[] private _supportedChains;
+
+    // tokenId => record of bridges
+    mapping(uint256 => uint[]) public histories;
 
     // keeps track of each nft current chain
     mapping(uint => uint) public currentChains;
@@ -59,6 +63,10 @@ contract MultiERC721 is ERC721 {
         return _supportedChains;
     }
 
+    function history(uint _tokenID) public view returns (uint[] memory) {
+        return histories[_tokenID];
+    }
+
     function setSourceAddress(address sourceAddress_) public {
         _primaryAddress = sourceAddress_;
     }
@@ -66,19 +74,32 @@ contract MultiERC721 is ERC721 {
     function mint(
         string memory uri,
         address to,
-        uint256 _tokenID
+        uint256 _tokenID,
+        uint[] memory _history
     ) public returns (uint) {
         uint _id;
 
         if (_tokenID == 0) {
+            // new token to be minted
             tokenID++;
             _id = tokenID;
         } else {
+            // burnt token to be minted
             _id = _tokenID;
         }
 
+        // update nft history
+        histories[_id] = _history;
+
+        // mint the token
         _mint(to, _id);
+
+        // attach metadata uri to token
         _setTokenURI(_id, uri);
+
+        // add this chain to nft history
+        histories[_id].push(5);
+
         return _id;
     }
 
@@ -112,7 +133,7 @@ contract MultiERC721 is ERC721 {
         uint256 tokenId,
         string memory _tokenURI
     ) internal virtual {
-        require(_exists(tokenId), "!exist");
+        require(_exists(tokenId), "token does not exists");
         tokenURIs[tokenId] = _tokenURI;
     }
 
@@ -123,7 +144,7 @@ contract MultiERC721 is ERC721 {
     function tokenURI(
         uint256 tokenId
     ) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "!exist");
+        require(_exists(tokenId), "token does not exists");
 
         string memory _tokenURI = tokenURIs[tokenId];
         string memory base = _baseURI();

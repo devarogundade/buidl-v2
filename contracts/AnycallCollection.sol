@@ -140,7 +140,7 @@ contract AnycallCollection {
         );
 
         // mint nft
-        uint tokenID = nft.mint(uri, msg.sender, 0);
+        uint tokenID = nft.mint(uri, msg.sender, 0, new uint[](0));
 
         emit Events.ArtItem(
             // id
@@ -199,6 +199,7 @@ contract AnycallCollection {
             nft.creator(), // related for non existing nft
             tokenID,
             nft.holderOf(tokenID),
+            nft.history(tokenID),
             nft.cover(),
             nft.avatar()
         );
@@ -236,6 +237,7 @@ contract AnycallCollection {
         address creator, // related for non existing nft
         uint256 tokenID,
         address holder,
+        uint[] memory history,
         string memory cover,
         string memory avatar
     ) public onlyReceiver {
@@ -261,7 +263,7 @@ contract AnycallCollection {
             nftMaps[sourceAddress] = address(nft);
         }
 
-        nft.mint(uri, holder, tokenID);
+        nft.mint(uri, holder, tokenID, history);
     }
 
     function _isEligble(

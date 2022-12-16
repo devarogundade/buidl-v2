@@ -40,7 +40,7 @@
 
 <script>
 import Authenticate from '~/static/scripts/Authenticate';
-import CrossArt from '~/static/scripts/CrossArt';
+import AnycallCollection from '~/static/scripts/AnycallCollection';
 import IPFS from '~/static/scripts/IPFS';
 import Network from '~/static/scripts/Network';
 
@@ -111,7 +111,7 @@ export default {
             const address = (await Authenticate.getUserAddress(Network.current())).address
 
             // contract call
-            const response = await CrossArt.createArt(
+            const response = await AnycallCollection.createArt(
                 uri,
                 address,
                 this.$route.params.collection.toLowerCase()

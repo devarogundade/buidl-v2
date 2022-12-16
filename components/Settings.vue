@@ -43,7 +43,7 @@
 
 <script>
 import Authenticate from '~/static/scripts/Authenticate';
-import CrossArt from '~/static/scripts/CrossArt';
+import AnycallCollection from '~/static/scripts/AnycallCollection';
 import Firestore from '~/static/scripts/Firestore';
 import Network from '~/static/scripts/Network';
 
@@ -78,7 +78,7 @@ export default {
 
             this.updating = true
 
-            const response = await CrossArt.updateCollection(
+            const response = await AnycallCollection.updateCollection(
                 this.whiteList,
                 this.blackList,
                 this.isWhiteSystem,

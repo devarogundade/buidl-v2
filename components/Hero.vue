@@ -65,7 +65,7 @@ section {
 
 .hero_title span {
     background-image: linear-gradient(to bottom, #ffffff 0%, #fff282 100%);
-    text-decoration: underline #fff282 4px;
+    text-decoration: underline #fff282 3px;
 }
 
 .hero_subtitle {
@@ -98,6 +98,8 @@ section {
     margin-top: 160px;
     width: 100%;
     text-align: left;
+    font-weight: 600;
+    color: #fff282;
 }
 
 .images {

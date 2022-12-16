@@ -1,8 +1,8 @@
 import contract from 'truffle-contract'
-import contractJson from "~/build/contracts/CrossArt.json"
+import contractJson from "~/build/contracts/AnycallCollection.json"
 import Utils from './Utils'
 
-const CrossArt = {
+const AnycallCollection = {
     instance: null,
     getInstance: async function() {
         if (this.instance != null) {
@@ -176,4 +176,4 @@ const CrossArt = {
     }
 }
 
-export default CrossArt
+export default AnycallCollection

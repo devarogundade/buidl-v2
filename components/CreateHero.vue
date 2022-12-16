@@ -77,8 +77,6 @@ section {
     font-weight: 600;
     background: #e6e6e6;
     color: #010101;
-    box-shadow: 2px 2px #010101;
-    border: 1px solid #010101;
 }
 
 .image {

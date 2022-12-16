@@ -48,7 +48,7 @@
 <script>
 import chains from "~/static/chains.json"
 import Authenticate from '~/static/scripts/Authenticate';
-import CrossArt from '~/static/scripts/CrossArt';
+import AnycallCollection from '~/static/scripts/AnycallCollection';
 import IPFS from '~/static/scripts/IPFS';
 import Network from '~/static/scripts/Network';
 
@@ -117,7 +117,7 @@ export default {
             }
 
             const address = (await Authenticate.getUserAddress(Network.current())).address
-            const response = await CrossArt.createCollection(
+            const response = await AnycallCollection.createCollection(
                 this.name,
                 this.symbol,
                 this.selectedChains,
