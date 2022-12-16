@@ -1,28 +1,36 @@
 <template>
-<div class="lds-spinner">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+<div class="progress">
+    <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </div>
 </template>
 
 <style scoped>
+.progress {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .lds-spinner {
     color: official;
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
-    transform: scale(0.5, 0.5);
 }
 
 .lds-spinner div {
@@ -39,7 +47,7 @@
     width: 6px;
     height: 18px;
     border-radius: 20%;
-    background: #010101;
+    background: #fff;
 }
 
 .lds-spinner div:nth-child(1) {

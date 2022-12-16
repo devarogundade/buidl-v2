@@ -43,14 +43,12 @@
 
 <script>
 import Authenticate from '~/static/scripts/Authenticate'
+import Network from '~/static/scripts/Network'
 export default {
     data() {
         return {
             address: null,
         }
-    },
-    created() {
-        this.connectWallet()
     },
     methods: {
         onDrawer: function () {
@@ -59,7 +57,7 @@ export default {
             this.showBuild = false
         },
         connectWallet: async function () {
-            const response = await Authenticate.getUserAddress(this.network)
+            const response = await Authenticate.getUserAddress(Network.current())
             if (response.status) {
                 this.address = response.address
             }

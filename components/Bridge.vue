@@ -44,6 +44,7 @@
 import chains from "~/static/chains.json"
 import Authenticate from '~/static/scripts/Authenticate'
 import CrossArt from '~/static/scripts/CrossArt'
+import Network from '~/static/scripts/Network'
 import NFT from '~/static/scripts/NFT'
 export default {
     data() {
@@ -80,7 +81,7 @@ export default {
             this.to = chain
         },
         bridge: async function () {
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
 
             this.bridging = true
 
@@ -94,7 +95,7 @@ export default {
             this.bridging = false
         },
         test: async function () {
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
             await CrossArt.addChain(4002, '0x0b17D258E1245a1191EB2bA4C505297dE89e7B09', address)
         }
     }

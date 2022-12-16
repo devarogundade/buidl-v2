@@ -5,16 +5,15 @@ import {MultiERC721} from "./MultiERC721.sol";
 import {Events} from "./libraries/Events.sol";
 import {CallProxy} from "./interfaces/CallProxy.sol";
 
-contract CrossArt {
+contract AnycallCollection {
     address private _deployer;
     uint private _thisChainId;
 
     // anycall contracts
     address public _anycallcontract;
-    address private _anycallExecutor;
 
-    // network id => destinations contract
-    mapping(uint => address) public destinations;
+    // network id => receivers contract
+    mapping(uint => address) public receivers;
 
     // creator => nft contract addresses
     mapping(address => address[]) public creators;
@@ -34,16 +33,10 @@ contract CrossArt {
         address creator;
     }
 
-    receive() external payable {}
-
-    fallback() external payable {}
-
     constructor(address anycallcontract, uint chainId) {
         _thisChainId = chainId;
         _anycallcontract = anycallcontract;
-
         _deployer = msg.sender;
-        _anycallExecutor = CallProxy(_anycallcontract).executor();
     }
 
     function createCollection(
@@ -139,7 +132,6 @@ contract CrossArt {
 
     function mint(string memory uri, address contractAddress) public payable {
         MultiERC721 nft = MultiERC721(contractAddress);
-        Collection memory collection = collections[contractAddress];
 
         // middleware
         require(
@@ -185,11 +177,11 @@ contract CrossArt {
     function bridge(
         uint tokenID,
         address contractAddress,
-        uint destinationChainId
+        uint receiverChainId
     ) public payable {
         MultiERC721 nft = MultiERC721(contractAddress);
         require(
-            nft.isChainSupported(destinationChainId),
+            nft.isChainSupported(receiverChainId),
             "unsupported destination chain"
         );
 
@@ -212,7 +204,7 @@ contract CrossArt {
         );
 
         require(
-            destinations[destinationChainId] != address(0),
+            receivers[receiverChainId] != address(0),
             "Please add destination chain"
         );
 
@@ -223,48 +215,30 @@ contract CrossArt {
         // on destination chain
         CallProxy(_anycallcontract).anyCall{value: msg.value}(
             // _to chain contract
-            destinations[destinationChainId],
+            receivers[receiverChainId],
             // sending the encoded bytes of the string uri and decode on the destination chain
             data,
+            // fallback address,
+            address(0),
             // _to chain id
-            destinationChainId,
-            // using 4 flag to pay fee on the source chain with fallback
-            4,
-            // ext data
-            ""
+            receiverChainId,
+            // using 4 flag to pay fee on the source chain without fallback
+            0
         );
     }
 
-    function anyExecute(
-        bytes calldata _data
-    ) external returns (bool success, bytes memory result) {
-        (
-            address sourceAddress,
-            string memory uri,
-            string memory name, // related for non existing nft
-            string memory symbol, // related for non existing nft
-            uint[] memory supportedChains, // related for non existing nft
-            address creator, // related for non existing nft
-            uint256 tokenID,
-            address holder,
-            string memory cover,
-            string memory avatar
-        ) = abi.decode(
-                _data,
-                (
-                    address,
-                    string,
-                    string,
-                    string,
-                    uint[],
-                    address,
-                    uint256,
-                    address,
-                    string,
-                    string
-                )
-            );
-
+    function execute(
+        address sourceAddress,
+        string memory uri,
+        string memory name, // related for non existing nft
+        string memory symbol, // related for non existing nft
+        uint[] memory supportedChains, // related for non existing nft
+        address creator, // related for non existing nft
+        uint256 tokenID,
+        address holder,
+        string memory cover,
+        string memory avatar
+    ) public onlyReceiver {
         bool existing = nftMaps[sourceAddress] != address(0);
 
         MultiERC721 nft;
@@ -288,9 +262,6 @@ contract CrossArt {
         }
 
         nft.mint(uri, holder, tokenID);
-
-        success = true;
-        result = "";
     }
 
     function _isEligble(
@@ -315,21 +286,16 @@ contract CrossArt {
         uint chainId,
         address contractAddress
     ) public onlyDeployer {
-        destinations[chainId] = contractAddress;
+        receivers[chainId] = contractAddress;
     }
-
-    event Desposit(address account, uint256 amount);
 
     modifier onlyDeployer() {
         require(msg.sender == _deployer, "only owner can call this method");
         _;
     }
 
-    modifier onlyExecutor() {
-        require(
-            msg.sender == _anycallExecutor,
-            "Only executor can call this method"
-        );
+    modifier onlyReceiver() {
+        require(true, "Only executor can call this method");
         _;
     }
 }

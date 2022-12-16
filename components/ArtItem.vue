@@ -9,8 +9,14 @@
             <div class="text">
                 <div>
                     <h3 class="name">{{ collection.name }} ({{ collection.symbol }})</h3>
-                    <a target="_blank" :href="`https://testnets.opensea.io/assets/avalanche-fuji/${$route.params.collection}/1`">
-                        <p class="link">View on Opensea <i class="fi fi-rr-link"></i></p>
+                    <a>
+                        <p class="link">
+                            {{
+                            collection.address.toLowerCase().substring(0, 15) +
+                            "..." +
+                            collection.address.toLowerCase().substring(collection.address.length - 15, collection.address.length)
+                            }}
+                            <i class="fi fi-rr-copy"></i></p>
                     </a>
                 </div>
                 <div class="actions">
@@ -21,6 +27,8 @@
                         <div class="button">New NFT</div>
                     </router-link>
                     <div class="button" v-else>Mint</div>
+
+                    <div class="button share"><i class="fi fi-rr-arrow-up-from-square"></i></div>
                 </div>
             </div>
             <div class="nfts">
@@ -47,6 +55,7 @@
 import chains from '~/static/chains.json';
 import Authenticate from '~/static/scripts/Authenticate'
 import Firestore from '~/static/scripts/Firestore'
+import Network from '~/static/scripts/Network';
 import NFT from '~/static/scripts/NFT'
 
 export default {
@@ -68,7 +77,7 @@ export default {
             return this.chains.filter(chain => chain.chainId == id)[0]
         },
         getCollection: async function () {
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
 
             this.collection = await Firestore.fetch(
                 "collections",
@@ -160,6 +169,15 @@ export default {
 .text .button2 {
     background: #3d392a;
     color: #fff8dd;
+}
+
+.text .share {
+    width: 60px;
+    background: #3d392a;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 30px;
 }
 
 .nfts {

@@ -1,5 +1,5 @@
 const Authenticate = {
-    getUserAddress: async function() {
+    getUserAddress: async function(chain = 5) {
         if (typeof ethereum === 'undefined') return null
 
         try {
@@ -7,9 +7,25 @@ const Authenticate = {
                 method: 'eth_requestAccounts'
             });
 
-            // await this.switchToFantomTestnet()
-            await this.switchToAvalancheTestnet()
-                // await this.switchToEthereumTestnet()
+            switch (chain) {
+                case 5:
+                    await this.switchToEthereumTestnet()
+                    break;
+                case 97:
+                    await this.switchToFantomTestnet()
+                    break;
+                case 4002:
+                    await this.switchToFantomTestnet()
+                    break;
+                case 43113:
+                    await this.switchToAvalancheTestnet()
+                    break;
+                case 8001:
+                    await this.switchToPolygonTestnet()
+                    break;
+                default:
+                    break;
+            }
 
             const accounts = await ethereum.enable();
             return {

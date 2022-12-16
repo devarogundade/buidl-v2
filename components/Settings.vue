@@ -8,19 +8,26 @@
                     <img :src="collection.avatar" id="avatar" class="avatar">
                 </div>
 
-                <div class="edit">
-                    <p class="label">Collection Name</p>
-                    <input type="email" v-model="collection.name" disabled placeholder="Simple Art" maxlength="30">
-                </div>
-
-                <div class="edit">
-                    <p class="label">About Collection</p>
-                    <input type="text" v-model="collection.symbol" disabled placeholder="Symbol e.g SMP" maxlength="6">
+                <div class="text">
+                    <h3>{{ collection.name }} ({{ collection.symbol }})</h3>
                 </div>
 
                 <div class="edit">
                     <p class="label">Mint Price</p>
                     <input v-model="mintPrice" type="number" placeholder="https://www.example.com">
+                </div>
+
+                <div class="edit">
+                    <p class="label">WhiteList</p>
+                    <label class="switch">
+                        <input v-model="isWhiteSystem" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="edit mt_40" v-if="isWhiteSystem">
+                    <div class="label">Addresses separated by comma</div>
+                    <textarea v-model="whiteList" cols="30" rows="10"></textarea>
                 </div>
 
                 <div class="sign_up" v-if="!updating" v-on:click="update()">Update</div>
@@ -38,12 +45,16 @@
 import Authenticate from '~/static/scripts/Authenticate';
 import CrossArt from '~/static/scripts/CrossArt';
 import Firestore from '~/static/scripts/Firestore';
+import Network from '~/static/scripts/Network';
 
 export default {
     data() {
         return {
             collection: null,
             mintPrice: '0',
+            whiteList: '',
+            blackList: '',
+            isWhiteSystem: false,
             updating: false,
             fetching: true
         }
@@ -63,7 +74,7 @@ export default {
             this.fetching = false
         },
         update: async function () {
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
 
             this.updating = true
 
@@ -83,7 +94,8 @@ export default {
 
 <style scoped>
 .app-width {
-    padding: 150px 0;
+    padding-top: 80px;
+    padding-bottom: 150px;
 }
 
 .apply {
@@ -107,7 +119,7 @@ export default {
     font-size: 18px;
     line-height: 22px;
     letter-spacing: 0.02em;
-    color: #887e55;
+    color: #BCB69F;
     margin-bottom: 10px;
 }
 
@@ -124,6 +136,22 @@ export default {
     line-height: 22px;
     letter-spacing: 0.02em;
     outline: none;
+    color: #F9F6ED;
+}
+
+.edit textarea {
+    border: 2px solid #BCB69F;
+    border-radius: 8px;
+    background: transparent;
+    width: 100%;
+    padding: 20px;
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    outline: none;
+    color: #F9F6ED;
 }
 
 .tick {
@@ -199,7 +227,7 @@ export default {
     width: 100%;
     height: 240px;
     position: relative;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .image .cover {
@@ -236,5 +264,22 @@ export default {
     height: 80px;
     left: 20px;
     bottom: -40px;
+}
+
+.text h3 {
+    font-size: 30px;
+    color: #fff;
+}
+
+input:checked+.slider {
+    background-color: #F3CB34;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #F3CB34;
+}
+
+.mt_40 {
+    margin-top: 0 !important;
 }
 </style>

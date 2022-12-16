@@ -42,6 +42,7 @@
 import Authenticate from '~/static/scripts/Authenticate';
 import CrossArt from '~/static/scripts/CrossArt';
 import IPFS from '~/static/scripts/IPFS';
+import Network from '~/static/scripts/Network';
 
 export default {
     data() {
@@ -107,7 +108,7 @@ export default {
             const uri = await IPFS.upload("uri", metadata)
 
             // user address
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
 
             // contract call
             const response = await CrossArt.createArt(
@@ -148,7 +149,7 @@ export default {
     font-size: 18px;
     line-height: 22px;
     letter-spacing: 0.02em;
-    color: #887e55;
+    color: #BCB69F;
     margin-bottom: 10px;
 }
 
@@ -165,6 +166,7 @@ export default {
     line-height: 22px;
     letter-spacing: 0.02em;
     outline: none;
+    color: #F9F6ED;
 }
 
 .tick {

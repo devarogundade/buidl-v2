@@ -1,6 +1,7 @@
 <template>
 <section>
-    <div class="app-width">
+    <Progress v-if="fetching" />
+    <div class="app-width" v-else>
         <div class="container">
             <div class="collections">
                 <router-link v-for="(collection, index) in collections" :to="`/collections/${collection.address.toLowerCase()}`" :key="index">
@@ -35,12 +36,14 @@
 import chains from '~/static/chains.json'
 import Authenticate from '~/static/scripts/Authenticate'
 import Firestore from '~/static/scripts/Firestore'
+import Network from '~/static/scripts/Network'
 
 export default {
     data() {
         return {
             collections: [],
-            chains: chains
+            chains: chains,
+            fetching: true
         }
     },
     created() {
@@ -51,7 +54,7 @@ export default {
             return this.chains.filter(chain => chain.chainId == id)[0]
         },
         getCollections: async function () {
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
             this.fetching = true
 
             this.collections = await Firestore.fetchAllWhere(

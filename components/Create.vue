@@ -23,21 +23,25 @@
                 <div class="edit">
                     <p class="label">Select supported blockchains</p>
                     <div class="roles">
-                        <div v-for="chain in chains" :key="chain.chainId" :class="selectedChains.includes(chain.chainId) ? 'selected role' : 'role'" v-on:click="selectChain(chain)">{{ chain.name }} <i class="fi fi-rr-check"></i></div>
+                        <div v-for="chain in chains.filter(ch => ch.chainId != primaryChain)" :key="chain.chainId" :class="selectedChains.includes(chain.chainId) ? 'selected role' : 'role'" v-on:click="selectChain(chain)">{{ chain.name }} <i class="fi fi-rr-check"></i></div>
                     </div>
                 </div>
 
                 <div class="edit">
-                    <p class="label">Website Link</p>
+                    <p class="label">Website (Optional)</p>
                     <input v-model="link" type="text" placeholder="https://www.example.com">
                 </div>
 
                 <div class="sign_up" v-if="!creating" v-on:click="create()">Create</div>
-                <div class="sign_up" v-else><TinyProgress /></div>
+                <div class="sign_up" v-else>
+                    <TinyProgress />
+                </div>
             </div>
 
         </div>
     </div>
+
+    <ChooseChain v-if="choose" v-on:close="choosePrimaryChain($event)" />
 </section>
 </template>
 
@@ -46,6 +50,7 @@ import chains from "~/static/chains.json"
 import Authenticate from '~/static/scripts/Authenticate';
 import CrossArt from '~/static/scripts/CrossArt';
 import IPFS from '~/static/scripts/IPFS';
+import Network from '~/static/scripts/Network';
 
 export default {
     data() {
@@ -59,6 +64,8 @@ export default {
             selectedChains: [],
             symbol: '',
             link: '',
+            primaryChain: 5,
+            choose: true,
             creating: false,
             coverFile: null,
             avatarFile: null
@@ -99,13 +106,17 @@ export default {
 
             this.creating = true
 
-            const base1 = await IPFS.toBase64(this.coverFile)
-            const url1 = await IPFS.upload("cover", base1)
+            if (this.coverFile) {
+                const base1 = await IPFS.toBase64(this.coverFile)
+                const url1 = await IPFS.upload("cover", base1)
+            }
 
-            const base2 = await IPFS.toBase64(this.avatarFile)
-            const url2 = await IPFS.upload("avatar", base2)
+            if (this.avatarFile) {
+                const base2 = await IPFS.toBase64(this.avatarFile)
+                const url2 = await IPFS.upload("avatar", base2)
+            }
 
-            const address = (await Authenticate.getUserAddress()).address
+            const address = (await Authenticate.getUserAddress(Network.current())).address
             const response = await CrossArt.createCollection(
                 this.name,
                 this.symbol,
@@ -116,6 +127,10 @@ export default {
             )
 
             this.creating = false
+        },
+        choosePrimaryChain: function (event) {
+            this.choose = false
+            this.primaryChain = event
         }
     }
 }
@@ -123,7 +138,8 @@ export default {
 
 <style scoped>
 .app-width {
-    padding: 150px 0;
+    padding-top: 80px;
+    padding-bottom: 150px;
 }
 
 .apply {
@@ -147,7 +163,7 @@ export default {
     font-size: 18px;
     line-height: 22px;
     letter-spacing: 0.02em;
-    color: #887e55;
+    color: #BCB69F;
     margin-bottom: 10px;
 }
 
@@ -164,6 +180,7 @@ export default {
     line-height: 22px;
     letter-spacing: 0.02em;
     outline: none;
+    color: #F9F6ED;
 }
 
 .tick {
