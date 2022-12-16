@@ -1,69 +1,65 @@
-# crossart
+v1 Github -> https://github.com/devarogundade/buidl_dapp
 
-## Build Setup
+*This Project has been hosted on a free host. You might experience a little delay at cold laod*
 
-```bash
-# install dependencies
-$ npm install
+# Buidl - A Cross Chain NFT Dapp for Creators
+## _A Moralis X Google Cloud Hackathon Project_
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+Buidl is a Social-Fi for video content creators (e.g instructors, YouTubers, DIY makers, etc) anyone that shares their skills with other people online either for free or at a particular cost.
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+Today, there are various existing Web2 solutions for this particular aspect, but we are taking it further leveraging blockchain technology to provide more secured, learning incentives with ownership to the community pattern.
 
-# generate static project
-$ npm run generate
-```
+To become a creator on the buidl platform requires a minimum stake of 2000 BDL tokens for a minimum duration of one year, if staking is withdrawn after one year the user is not a creator anymore until they restake a minimum of 2000 BDL back in the contract.
+A creator with suspicious activities and a high report rate is subjected to ban and their staked BDL token remains locked in the smart contract, this feature helps us maintain the DAO a safe community.
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+## Core Features
+- # Incentives for learning
+    Non creators will cover the largest base of the platform, it is a crucial part of the platform to encourage and reward users to retain them to use and enjoy the       platform.
 
-## Special Directories
+    
+- # Cryptocurrency payment and Guaranteed refund system using Staking protocol
+    The Buidl Token (BDL)  is the only payment method of the platform, which will be available on CEX and DEX.
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+- # Account Bound Certificate (ERC4973)
+    The Buidl Token (BDL)  is the only payment method of the platform, which will be available on CEX and DEX.
 
-### `assets`
+- # Protection on premium contents
+    A better approach to protect videos online is creating custom players to restrict access by other players, this is very common in streaming services like netflix,     etc.
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+## Revenue Model
+- We charge a 8% service fee from every earnings from the creators.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+## Tech Stacks
 
-### `components`
+- Binance Smart Chain (Testnet)
+- Moralis Stream [#](https://github.com/devarogundade/buidl_dapp/tree/master/moralis-stream-api) and Web3 APIs [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis)
+- IPFS (File System) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis/ipfs.js)
+- Solidity (Smart Contract) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts)
+- Nuxtjs (Frontend)
+- Nodejs (Backend) 
+- Truffle
+- MultiChain (Cross Chain Messaging) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/axelar)
+- Google Cloud Firebase [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/firestore.js)
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+## Demo
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+- See mode at https://buidl-v2.netflify.app/
 
-### `layouts`
+## Sneak peaks
+![Screenshot 2022-11-11 151337](https://user-images.githubusercontent.com/81397790/201359847-65319d26-b7ed-4c6c-b36e-766be670108c.png)
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+## Other Services
+- Netlify
+- Render
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+## Roadmap
+   https://buidl-v2.netlify.app/#roadmap
 
+## Contribution
 
-### `pages`
+Want to contribute? Great!
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+Reach out to me at https://linktr.ee/devarogundade
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+## Team
+- Arogundade Ibrahim
