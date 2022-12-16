@@ -9,10 +9,11 @@ contract CrossArt {
     address private _deployer;
     uint private _thisChainId;
 
-    // anycall contracts mapped to chainId
+    // anycall contracts
     address public _anycallcontract;
+    address private _anycallExecutor;
 
-    // destinations contract
+    // network id => destinations contract
     mapping(uint => address) public destinations;
 
     // creator => nft contract addresses
@@ -38,9 +39,11 @@ contract CrossArt {
     fallback() external payable {}
 
     constructor(address anycallcontract, uint chainId) {
-        _anycallcontract = anycallcontract;
         _thisChainId = chainId;
+        _anycallcontract = anycallcontract;
+
         _deployer = msg.sender;
+        _anycallExecutor = CallProxy(_anycallcontract).executor();
     }
 
     function createCollection(
@@ -138,22 +141,13 @@ contract CrossArt {
         MultiERC721 nft = MultiERC721(contractAddress);
         Collection memory collection = collections[contractAddress];
 
-        if (msg.sender != nft.creator()) {
-            require(
-                msg.value >= collection.mintPrice,
-                "Insuficient Mint Amount"
-            );
+        // middleware
+        require(
+            msg.sender == nft.creator(),
+            "Only creator can call this method"
+        );
 
-            if (collection.isWhiteSystem) {
-                bool eligible = _isEligble(
-                    msg.sender,
-                    collection.whiteList,
-                    collection.blackList
-                );
-                require(eligible, "You're not eligible");
-            }
-        }
-
+        // mint nft
         uint tokenID = nft.mint(uri, msg.sender, 0);
 
         emit Events.ArtItem(
@@ -165,6 +159,27 @@ contract CrossArt {
             // chain
             _thisChainId
         );
+    }
+
+    function buy(address contractAddress) public payable {
+        MultiERC721 nft = MultiERC721(contractAddress);
+        Collection memory collection = collections[contractAddress];
+
+        require(
+            msg.sender != nft.creator(),
+            "Only non creator can call this method"
+        );
+
+        require(msg.value >= collection.mintPrice, "Insuficient Mint Amount");
+
+        if (collection.isWhiteSystem) {
+            bool eligible = _isEligble(
+                msg.sender,
+                collection.whiteList,
+                collection.blackList
+            );
+            require(eligible, "You're not eligible");
+        }
     }
 
     function bridge(
@@ -191,7 +206,14 @@ contract CrossArt {
             nft.supportedChains(), // related for non existing nft
             nft.creator(), // related for non existing nft
             tokenID,
-            nft.holderOf(tokenID)
+            nft.holderOf(tokenID),
+            nft.cover(),
+            nft.avatar()
+        );
+
+        require(
+            destinations[destinationChainId] != address(0),
+            "Please add destination chain"
         );
 
         // burn token on originated chain
@@ -200,18 +222,21 @@ contract CrossArt {
         // cross-chain message to mint same token
         // on destination chain
         CallProxy(_anycallcontract).anyCall{value: msg.value}(
+            // _to chain contract
             destinations[destinationChainId],
             // sending the encoded bytes of the string uri and decode on the destination chain
             data,
+            // _to chain id
             destinationChainId,
-            // Using 0 flag to pay fee on the source chain
-            0,
+            // using 4 flag to pay fee on the source chain with fallback
+            4,
+            // ext data
             ""
         );
     }
 
     function anyExecute(
-        bytes memory _data
+        bytes calldata _data
     ) external returns (bool success, bytes memory result) {
         (
             address sourceAddress,
@@ -221,7 +246,9 @@ contract CrossArt {
             uint[] memory supportedChains, // related for non existing nft
             address creator, // related for non existing nft
             uint256 tokenID,
-            address holder
+            address holder,
+            string memory cover,
+            string memory avatar
         ) = abi.decode(
                 _data,
                 (
@@ -232,7 +259,9 @@ contract CrossArt {
                     uint[],
                     address,
                     uint256,
-                    address
+                    address,
+                    string,
+                    string
                 )
             );
 
@@ -246,8 +275,8 @@ contract CrossArt {
             nft = new MultiERC721(
                 name,
                 symbol,
-                "",
-                "",
+                cover,
+                avatar,
                 supportedChains,
                 _thisChainId,
                 creator
@@ -293,6 +322,14 @@ contract CrossArt {
 
     modifier onlyDeployer() {
         require(msg.sender == _deployer, "only owner can call this method");
+        _;
+    }
+
+    modifier onlyExecutor() {
+        require(
+            msg.sender == _anycallExecutor,
+            "Only executor can call this method"
+        );
         _;
     }
 }

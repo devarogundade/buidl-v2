@@ -64,15 +64,6 @@ export default {
             avatarFile: null
         }
     },
-    watch: {
-        errorMessage: function (val) {
-            if (val != null) {
-                setTimeout(() => {
-                    this.errorMessage = null
-                }, 1000);
-            }
-        }
-    },
     methods: {
         selectChain: function (chain) {
             if (this.selectedChains.includes(chain.chainId)) {

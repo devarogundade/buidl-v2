@@ -1,5 +1,6 @@
 import contract from 'truffle-contract'
 import contractJson from "~/build/contracts/CrossArt.json"
+import Utils from './Utils'
 
 const CrossArt = {
     instance: null,
@@ -89,8 +90,13 @@ const CrossArt = {
             }
         }
     },
+
     bridge: async function(tokenId, toChain, address, contractAddress) {
         const instance = await this.getInstance()
+
+        console.log(
+            tokenId, toChain
+        );
 
         if (instance == null) return {
             message: 'Failed to Initialize',
@@ -103,7 +109,8 @@ const CrossArt = {
                 tokenId,
                 contractAddress,
                 toChain, {
-                    from: address
+                    from: address,
+                    value: Utils.toWei('0.1')
                 })
             return {
                 message: 'Transaction Hash',
@@ -116,6 +123,55 @@ const CrossArt = {
                 error: error,
                 status: false
             }
+        }
+    },
+    updateCollection: async function(
+        whiteList,
+        blackList,
+        isWhiteSystem,
+        mintPrice,
+        contractAddress
+    ) {
+        const instance = await this.getInstance()
+
+        if (instance == null) return {
+            message: 'Failed to Initialize',
+            error: null,
+            status: false
+        }
+
+        try {
+            const trx = await instance.updateCollection(
+                whiteList,
+                blackList,
+                isWhiteSystem,
+                mintPrice,
+                contractAddress, {
+                    from: address
+                })
+            return {
+                message: 'Transaction Hash',
+                trx: trx,
+                status: true
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                message: 'Transaction failed',
+                error: error,
+                status: false
+            }
+        }
+    },
+    addChain: async function(id, contractAddress, address) {
+        try {
+            const instance = await this.getInstance()
+
+            await instance.addChain(id, contractAddress, {
+                from: address
+            })
+        } catch (error) {
+
         }
     }
 }

@@ -20,39 +20,47 @@
             </div>
             <div class="from">
                 <p>Destination chain</p>
-                <div class="chain" v-on:click="showChains = true">
-                    <img :src="findNextChain(nft.chainId).image" alt="">
-                    <p>{{ findNextChain(nft.chainId).name }}</p>
+                <div v-if="to" class="chain" v-on:click="showChains = true">
+                    <img :src="to.image" alt="">
+                    <p>{{ to.name }}</p>
                     <i class="fi fi-rr-angle-down"></i>
                 </div>
             </div>
         </div>
 
-        <div class="action">
-            Bridge
+        <div class="action" v-on:click="bridge()" v-if="!bridging">Bridge NFT</div>
+        <div class="action" v-else>
+            <TinyProgress />
         </div>
+
+        <button v-on:click="test()">Add Chain</button>
     </div>
 
-    <ChainsPicker v-if="showChains" v-on:close="showChains = false" />
+    <ChainsPicker v-if="showChains" v-on:close="showChains = false" v-on:chain="selectChain($event)" />
 </section>
 </template>
 
 <script>
 import chains from "~/static/chains.json"
+import Authenticate from '~/static/scripts/Authenticate'
+import CrossArt from '~/static/scripts/CrossArt'
 import NFT from '~/static/scripts/NFT'
 export default {
     data() {
         return {
             chains: chains,
             showChains: false,
-            nft: null
+            nft: null,
+            bridging: false,
+            to: null
         }
     },
     created() {
+        this.to = this.findNextChain(this.$route.query.chain)
         this.getItem()
     },
     methods: {
-        getItem: async function() {
+        getItem: async function () {
             this.nft = await NFT.getNft(
                 this.$route.params.item,
                 this.$route.params.collection.toLowerCase(),
@@ -65,8 +73,29 @@ export default {
         findNextChain: function (id) {
             return this.chains.filter(chain => chain.chainId != id)[0]
         },
-        toJson: function(value) {
+        toJson: function (value) {
             return JSON.parse(value)
+        },
+        selectChain: function (chain) {
+            this.to = chain
+        },
+        bridge: async function () {
+            const address = (await Authenticate.getUserAddress()).address
+
+            this.bridging = true
+
+            const response = await CrossArt.bridge(
+                this.$route.params.item,
+                this.to.chainId,
+                address,
+                this.$route.params.collection.toLowerCase()
+            )
+
+            this.bridging = false
+        },
+        test: async function () {
+            const address = (await Authenticate.getUserAddress()).address
+            await CrossArt.addChain(4002, '0x0b17D258E1245a1191EB2bA4C505297dE89e7B09', address)
         }
     }
 }

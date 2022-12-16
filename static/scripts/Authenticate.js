@@ -9,6 +9,7 @@ const Authenticate = {
 
             // await this.switchToFantomTestnet()
             await this.switchToAvalancheTestnet()
+                // await this.switchToEthereumTestnet()
 
             const accounts = await ethereum.enable();
             return {
@@ -111,6 +112,35 @@ const Authenticate = {
             }
         }
     },
+    switchToEthereumTestnet: async function() {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x5' }],
+            });
+        } catch (error) {
+            if (error.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [{
+                            chainId: '0x5',
+                            chainName: 'Goerli',
+                            nativeCurrency: {
+                                name: 'Ethereum',
+                                symbol: 'ETH',
+                                decimals: 18
+                            },
+                            blockExplorerUrls: ['https://goerli.etherscan.io'],
+                            rpcUrls: ['https://rpc.ankr.com/eth_goerli'],
+                        }, ],
+                    });
+                } catch (addError) {
+                    console.error(addError);
+                }
+            }
+        }
+    }
 }
 
 export default Authenticate

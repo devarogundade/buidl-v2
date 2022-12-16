@@ -3,7 +3,7 @@
     <div class="app-width">
         <div class="container">
             <div class="collections">
-                <router-link v-for="(collection, index) in collections" :to="`/collections/${collection.address}`" :key="index">
+                <router-link v-for="(collection, index) in collections" :to="`/collections/${collection.address.toLowerCase()}`" :key="index">
                     <div class="collection">
                         <div class="chains">
                             <img v-for="id in collection.supportedChains" :key="id" :src="findChain(id).image" alt="">

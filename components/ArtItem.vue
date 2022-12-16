@@ -13,7 +13,10 @@
                         <p class="link">View on Opensea <i class="fi fi-rr-link"></i></p>
                     </a>
                 </div>
-                <div class="div">
+                <div class="actions">
+                    <router-link v-if="isCreator" :to="`/collections/${$route.params.collection}/settings`">
+                        <div class="button button2"><i class="fi fi-rr-settings"></i> Settings</div>
+                    </router-link>
                     <router-link v-if="isCreator" :to="`/collections/${$route.params.collection}/new-art`">
                         <div class="button">New NFT</div>
                     </router-link>
@@ -69,7 +72,7 @@ export default {
 
             this.collection = await Firestore.fetch(
                 "collections",
-                this.$route.params.collection
+                this.$route.params.collection.toUpperCase()
             )
 
             this.isCreator = this.collection.creator == address.toUpperCase()
@@ -150,7 +153,13 @@ export default {
     font-size: 20px;
     line-height: 24px;
     letter-spacing: 0.02em;
+    gap: 10px;
     color: #333025;
+}
+
+.text .button2 {
+    background: #3d392a;
+    color: #fff8dd;
 }
 
 .nfts {
@@ -223,5 +232,11 @@ export default {
     align-items: center;
     gap: 10px;
     color: #ca9f02;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 </style>

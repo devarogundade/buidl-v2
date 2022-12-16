@@ -13,11 +13,8 @@
                         <li>
                             <router-link :class="$route.name == 'index' ? 'active' : ''" to="/">Home</router-link>
                         </li>
-                        <li>
+                        <li v-if="address">
                             <router-link :class="$route.name.startsWith('collections') ? 'active' : ''" to="/collections">Collections</router-link>
-                        </li>
-                        <li>
-                            <router-link :class="$route.name == 'nft-insurance' ? 'active' : ''" to="/nft-insurance">NFT Insurance</router-link>
                         </li>
                     </ul>
                 </div>

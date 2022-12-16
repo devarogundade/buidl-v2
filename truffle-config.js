@@ -37,9 +37,20 @@ module.exports = {
         avalanche: {
             provider: () => new HDWalletProvider(
                 MNEMONIC,
-                `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`
+                `https://rpc.ankr.com/avalanche_fuji`
             ),
-            network_id: 43113, // Fantom chain testnet id
+            network_id: 43113, // Avalanche chain testnet id
+            confirmations: 2,
+            timeoutBlocks: 9999999,
+            skipDryRun: true,
+            networkCheckTimeout: 999999999
+        },
+        goerli: {
+            provider: () => new HDWalletProvider(
+                MNEMONIC,
+                `https://rpc.ankr.com/eth_goerli`
+            ),
+            network_id: 5, // Goerli chain testnet id
             confirmations: 2,
             timeoutBlocks: 9999999,
             skipDryRun: true,
