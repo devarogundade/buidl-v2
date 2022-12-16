@@ -27,7 +27,25 @@ A creator with suspicious activities and a high report rate is subjected to ban 
     A better approach to protect videos online is creating custom players to restrict access by other players, this is very common in streaming services like netflix,     etc.
 
 ## Revenue Model
-- We charge a 8% service fee from every earnings from the creators.
+   `Basic $0`
+- up to 10 nft collections.
+- max of 1000 tokens per collection.
+- supports only ethereum, binance, and polygon chains.
+- community support.
+
+  `Professional $15/yr`
+- up to 35 nft collections.
+- max of 6000 tokens per collection.
+- supports all chains from basic plus avalanche, fantom, artibium.
+- realtime support.
+
+  `Enterprise $65/yr`
+- unlimited nft collections.
+- unlimited tokens per collection.
+- supports all major evm compatible chains.
+- realtime support.
+
+
 
 ## Tech Stacks
 
