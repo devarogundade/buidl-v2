@@ -2,7 +2,7 @@ v1 Github -> https://github.com/devarogundade/buidl_dapp
 
 *This Project has been hosted on a free host. You might experience a little delay at cold laod*
 
-# Buidl - A Cross Chain NFT Dapp for Creators
+# Buidl - Create NFTs Collection that Works On Across Multiple Chains With Zero Knowledge
 ## _A Moralis X Google Cloud Hackathon Project_
 
 Buidl is a Social-Fi for video content creators (e.g instructors, YouTubers, DIY makers, etc) anyone that shares their skills with other people online either for free or at a particular cost.
