@@ -10,6 +10,7 @@ Choosing a blockchain over others is a difficult decision NFT creators have been
 This is where buidl comes in to address this problem,
 
 ## Core Features
+
 - # NFT tool for creators
     Non creators will cover the largest base of the platform, it is a crucial part of the platform to encourage and reward users to retain them to use and enjoy the       platform.
     
@@ -19,6 +20,7 @@ This is where buidl comes in to address this problem,
 - # Initial NFT Offering
 
 ## Revenue Model
+
   `Basic $0`
 - up to 10 nft collections.
 - max of 1000 tokens per collection.
@@ -40,16 +42,15 @@ This is where buidl comes in to address this problem,
 
 ## Tech Stacks
 
-- Binance Smart Chain (Testnet)
-- Moralis Stream [#](https://github.com/devarogundade/buidl_dapp/tree/master/moralis-stream-api) and Web3 APIs [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis)
-- IPFS (File System) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis/ipfs.js)
-- Solidity (Smart Contract) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts)
+- Moralis Stream and Web3 APIs
+- IPFS (File System)
+- Solidity (Smart Contract) 
 - Nuxtjs (Frontend)
 - Covalent API
 - Nodejs (Backend) 
 - Truffle
-- MultiChain Anycall V6 (Cross Chain Messaging) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/axelar)
-- Google Cloud Firebase [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/firestore.js)
+- MultiChain Anycall V7 (Cross Chain Messaging)
+- Google Cloud Firebase 
 
 ## Demo
 
@@ -61,9 +62,6 @@ This is where buidl comes in to address this problem,
 ## Other Services
 - Netlify
 - Render
-
-## Roadmap
-   https://buidl-v2.netlify.app/#roadmap
 
 ## Contribution
 
