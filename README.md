@@ -13,21 +13,33 @@ To become a creator on the buidl platform requires a minimum stake of 2000 BDL t
 A creator with suspicious activities and a high report rate is subjected to ban and their staked BDL token remains locked in the smart contract, this feature helps us maintain the DAO a safe community.
 
 ## Core Features
-- # Incentives for learning
+- # NFT tool for creators
     Non creators will cover the largest base of the platform, it is a crucial part of the platform to encourage and reward users to retain them to use and enjoy the       platform.
-
     
-- # Cryptocurrency payment and Guaranteed refund system using Staking protocol
+- # Support for Multiple Chains
     The Buidl Token (BDL)  is the only payment method of the platform, which will be available on CEX and DEX.
 
-- # Account Bound Certificate (ERC4973)
-    The Buidl Token (BDL)  is the only payment method of the platform, which will be available on CEX and DEX.
-
-- # Protection on premium contents
-    A better approach to protect videos online is creating custom players to restrict access by other players, this is very common in streaming services like netflix,     etc.
+- # Initial NFT Offering
 
 ## Revenue Model
-- We charge a 8% service fee from every earnings from the creators.
+  `Basic $0`
+- up to 10 nft collections.
+- max of 1000 tokens per collection.
+- supports only ethereum, binance, and polygon chains.
+- community support.
+
+  `Professional $15/yr`
+- up to 35 nft collections.
+- max of 6000 tokens per collection.
+- supports all chains from basic plus avalanche, fantom, artibium.
+- realtime support.
+
+  `Enterprise $65/yr`
+- unlimited nft collections.
+- unlimited tokens per collection.
+- supports all major evm compatible chains.
+- realtime support.
+
 
 ## Tech Stacks
 
@@ -36,9 +48,10 @@ A creator with suspicious activities and a high report rate is subjected to ban 
 - IPFS (File System) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis/ipfs.js)
 - Solidity (Smart Contract) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts)
 - Nuxtjs (Frontend)
+- Covalent API
 - Nodejs (Backend) 
 - Truffle
-- MultiChain (Cross Chain Messaging) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/axelar)
+- MultiChain Anycall V6 (Cross Chain Messaging) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/axelar)
 - Google Cloud Firebase [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/firestore.js)
 
 ## Demo
