@@ -5,12 +5,9 @@ v1 Github -> https://github.com/devarogundade/buidl_dapp
 # Buidl - Create NFTs Collection that Works On Across Multiple Chains With Zero Knowledge
 ## _A Moralis X Google Cloud Hackathon Project_
 
-Buidl is a Social-Fi for video content creators (e.g instructors, YouTubers, DIY makers, etc) anyone that shares their skills with other people online either for free or at a particular cost.
+Choosing a blockchain over others is a difficult decision NFT creators have been making over the years and this might also be risky at later run due to network clog or high transaction fees of the preferred blockchain.
 
-Today, there are various existing Web2 solutions for this particular aspect, but we are taking it further leveraging blockchain technology to provide more secured, learning incentives with ownership to the community pattern.
-
-To become a creator on the buidl platform requires a minimum stake of 2000 BDL tokens for a minimum duration of one year, if staking is withdrawn after one year the user is not a creator anymore until they restake a minimum of 2000 BDL back in the contract.
-A creator with suspicious activities and a high report rate is subjected to ban and their staked BDL token remains locked in the smart contract, this feature helps us maintain the DAO a safe community.
+This is where buidl comes in to address this problem,
 
 ## Core Features
 - # NFT tool for creators
