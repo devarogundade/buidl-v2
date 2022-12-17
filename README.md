@@ -2,7 +2,7 @@ v1 Github -> https://github.com/devarogundade/buidl_dapp
 
 *This Project has been hosted on a free host. You might experience a little delay at cold laod*
 
-# Buidl - Create NFTs Collection that Works On Across Multiple Chains With Zero Knowledge
+# Buidl - Create NFTs Collection that Works On Multiple Chains With Zero Knowledge
 ## _A Moralis X Google Cloud Hackathon Project_
 
 Choosing a blockchain over others is a difficult decision NFT creators have been making over the years and this might also be risky at later run due to network clog or high transaction fees of the preferred blockchain.
