@@ -106,17 +106,20 @@ export default {
 
             this.creating = true
 
+            let url1 = ''
             if (this.coverFile) {
                 const base1 = await IPFS.toBase64(this.coverFile)
-                const url1 = await IPFS.upload("cover", base1)
+                url1 = await IPFS.upload("cover", base1)
             }
 
+            let url2 = '';
             if (this.avatarFile) {
                 const base2 = await IPFS.toBase64(this.avatarFile)
-                const url2 = await IPFS.upload("avatar", base2)
+                url2 = await IPFS.upload("avatar", base2)
             }
 
             const address = (await Authenticate.getUserAddress(Network.current())).address
+
             const response = await AnycallCollection.createCollection(
                 this.name,
                 this.symbol,

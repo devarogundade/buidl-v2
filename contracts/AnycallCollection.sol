@@ -219,12 +219,12 @@ contract AnycallCollection {
             receivers[receiverChainId],
             // sending the encoded bytes of the string uri and decode on the destination chain
             data,
-            // fallback address,
-            address(0),
             // _to chain id
             receiverChainId,
             // using 4 flag to pay fee on the source chain without fallback
-            0
+            0,
+            // extras,
+            ""
         );
     }
 

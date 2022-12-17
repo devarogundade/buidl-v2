@@ -125,7 +125,8 @@ export default {
 
 <style scoped>
 .app-width {
-    padding: 150px 0;
+    padding-top: 80px;
+    padding-bottom: 150px;
 }
 
 .apply {

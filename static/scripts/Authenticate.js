@@ -1,5 +1,5 @@
 const Authenticate = {
-    getUserAddress: async function(chain = 5) {
+    getUserAddress: async function(chain = '5') {
         if (typeof ethereum === 'undefined') return null
 
         try {
@@ -8,19 +8,20 @@ const Authenticate = {
             });
 
             switch (chain) {
-                case 5:
+                case '5':
+                    console.log('here');
                     await this.switchToEthereumTestnet()
                     break;
-                case 97:
+                case '97':
                     await this.switchToFantomTestnet()
                     break;
-                case 4002:
+                case '4002':
                     await this.switchToFantomTestnet()
                     break;
-                case 43113:
+                case '43113':
                     await this.switchToAvalancheTestnet()
                     break;
-                case 8001:
+                case '8001':
                     await this.switchToPolygonTestnet()
                     break;
                 default:

@@ -9,7 +9,7 @@
         <p class="note">Note that you are not limited to this network as your will still select other chains you want to support.</p>
 
         <div class="chains">
-            <div v-for="chain in chains" v-on:click="selectedChain = chain.chainId" :class="selectedChain == chain.chainId ? 'chain selected' : 'chain'" :key="chain.chainId">
+            <div v-for="chain in chains" v-on:click="chooseChain(chain.chainId)" :class="selectedChain == chain.chainId ? 'chain selected' : 'chain'" :key="chain.chainId">
                 <i v-if="selectedChain == chain.chainId" class="fi fi-rr-check"></i>
                 <img :src="chain.image" alt="">
                 <div class="text">
@@ -36,9 +36,13 @@ export default {
             selectedChain: 5
         }
     },
-    watch: {
-        selectedChain: function (_chainId) {
-            Network.updateNetwork(_chainId)
+    created() {
+        this.chooseChain(this.selectedChain)
+    },
+    methods: {
+        chooseChain: function (chainId) {
+            this.selectedChain = chainId
+            Network.updateNetwork(chainId)
         }
     }
 }

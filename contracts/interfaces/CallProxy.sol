@@ -5,9 +5,9 @@ interface CallProxy {
     function anyCall(
         address _to,
         bytes calldata _data,
-        address _fallback,
         uint256 _toChainID,
-        uint256 _flags
+        uint256 _flags,
+        bytes calldata
     ) external payable;
 
     function context()

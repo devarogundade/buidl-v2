@@ -75,7 +75,7 @@ export default {
             this.nft = await NFT.getNft(
                 this.$route.params.item,
                 this.$route.params.collection.toLowerCase(),
-                this.findChain("43113").slug
+                this.findChain(this.$route.query.chain).slug
             )
 
             this.fetching = false
@@ -111,7 +111,7 @@ export default {
         },
         test: async function () {
             const address = (await Authenticate.getUserAddress(Network.current())).address
-            await AnycallCollection.addChain(4002, '0x0b17D258E1245a1191EB2bA4C505297dE89e7B09', address)
+            await AnycallCollection.addChain(4002, '0x1F24125EFA43E8B0ccbf69af59e93d6321592a01', address)
         }
     }
 }
