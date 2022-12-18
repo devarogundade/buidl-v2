@@ -54,7 +54,7 @@ This is where buidl comes in to address this problem,
 
 ## Demo
 
-- See mode at https://buidl-v2.netflify.app/
+- See mode at https://buidl-v2.netlify.app/
 
 ## Sneak peaks
 ![Screenshot 2022-12-18 163847](https://user-images.githubusercontent.com/81397790/208306951-fdc194f4-23e9-4228-ac2b-d71b5b5f6d10.png)
