@@ -18,7 +18,7 @@ This is where buidl comes in to address this problem,
     Ethereum, Polygon, Fantom, BNB Chain, Arbitum, Avalanche, and more.
 
 - # Initial NFT Offering
-    Creators can sell their NFT to selected set of users, with whitelist and blacklist system and also giving users the ability to choose a preferred chain to mint their nft on any of their support chains.
+    Creators can sell their NFT to selected set of users, with whitelist and blacklist system and also giving users the ability to choose a preferred chain to mint the nft on any of their support chains.
 ## Revenue Model
 
   `Basic $0`
