@@ -8,7 +8,7 @@
                     <h3>Launch Your Initial NFT Offering (INO)</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi rerum, suscipit reprehenderit temporibus expedita doloribus.</p>
                 </div>
-                <router-link to="/nft-insurance">
+                <router-link to="/">
                     <div class="action">Learn more</div>
                 </router-link>
             </div>

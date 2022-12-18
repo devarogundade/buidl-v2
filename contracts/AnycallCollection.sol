@@ -39,6 +39,10 @@ contract AnycallCollection {
         _deployer = msg.sender;
     }
 
+    receive() external payable {}
+
+    fallback() external payable {}
+
     function createCollection(
         string memory name,
         string memory symbol,
@@ -178,8 +182,9 @@ contract AnycallCollection {
         uint tokenID,
         address contractAddress,
         uint receiverChainId
-    ) public payable {
+    ) payable external {
         MultiERC721 nft = MultiERC721(contractAddress);
+
         require(
             nft.isChainSupported(receiverChainId),
             "unsupported destination chain"
@@ -206,11 +211,8 @@ contract AnycallCollection {
 
         require(
             receivers[receiverChainId] != address(0),
-            "Please add destination chain"
+            "Add this destination chain receiver's address"
         );
-
-        // burn token on originated chain
-        nft.burn(tokenID);
 
         // cross-chain message to mint same token
         // on destination chain
@@ -221,11 +223,14 @@ contract AnycallCollection {
             data,
             // _to chain id
             receiverChainId,
-            // using 4 flag to pay fee on the source chain without fallback
+            // using 0 flag to pay fee on the source chain without fallback
             0,
             // extras,
             ""
         );
+
+        // burn token on originated chain
+        nft.burn(tokenID);
     }
 
     function execute(

@@ -6,7 +6,7 @@
     "address": "0x965f84D915a9eFa2dD81b653e3AE736555d945f4"
 }, {
     "name": "BNB Testnet",
-    "slug": "bnb testnet",
+    "slug": "bsc testnet",
     "chainId": "97",
     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
     "address": "0xcBd52F7E99eeFd9cD281Ea84f3D903906BB677EC"

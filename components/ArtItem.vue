@@ -96,7 +96,7 @@ export default {
             const shareData = {
                 title: this.collection.name,
                 text: 'Visit my collection',
-                url: `https://build-v2.netlify.app/collection/${this.$route.params.collection}`
+                url: `https://buidl-v2.netlify.app/collections/${this.$route.params.collection}`
             }
 
             try {
@@ -106,17 +106,27 @@ export default {
             }
         },
         getItems: async function () {
-            const nfts = await NFT.getNftsFromContract(
-                this.$route.params.collection,
-                this.findChain("43113").slug
-            )
+            const nfts = []
 
-            if (nfts) {
-                nfts.forEach(nft => {
-                    nft.chainId = "43113"
-                    this.nfts.push(nft)
-                })
+            for (let index = 0; index < this.chains.length; index++) {
+                const chainId = this.chains[index].chainId
+
+                const x = await NFT.getNftsFromContract(
+                    this.$route.params.collection,
+                    this.findChain(chainId).slug
+                )
+
+                console.log(chainId, x);
+
+                if (x) {
+                    x.forEach(nft => {
+                        nft.chainId = chainId
+                        nfts.push(nft)
+                    })
+                }
             }
+
+            this.nfts = nfts.sort(nft => nft.chainId)
         },
         toJson: function (value) {
             return JSON.parse(value)

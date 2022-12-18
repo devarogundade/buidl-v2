@@ -42,7 +42,7 @@
         <button v-on:click="test()">Add Chain</button>
     </div>
 
-    <ChainsPicker v-if="showChains" v-on:close="showChains = false" v-on:chain="selectChain($event)" />
+    <!-- <ChainsPicker v-if="showChains" v-on:close="showChains = false" v-on:chain="selectChain($event)" /> -->
 </section>
 </template>
 
@@ -111,7 +111,7 @@ export default {
         },
         test: async function () {
             const address = (await Authenticate.getUserAddress(Network.current())).address
-            await AnycallCollection.addChain(4002, '0x1F24125EFA43E8B0ccbf69af59e93d6321592a01', address)
+            await AnycallCollection.addChain(4002, '0xd141aA637D7295643eb18F211e14b298B4AB58A1', address)
         }
     }
 }

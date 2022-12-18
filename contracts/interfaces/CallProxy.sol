@@ -7,7 +7,7 @@ interface CallProxy {
         bytes calldata _data,
         uint256 _toChainID,
         uint256 _flags,
-        bytes calldata
+        bytes calldata _extdata
     ) external payable;
 
     function context()

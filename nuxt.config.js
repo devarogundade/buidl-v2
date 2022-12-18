@@ -38,11 +38,6 @@ export default {
         '~/components'
     ],
 
-    plugins: [
-        // '@/plugins/BalanceApi.js',
-        // '@/plugins/LogsApi.js'
-    ],
-
     modules: [
         '@nuxtjs/axios'
     ],

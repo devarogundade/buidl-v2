@@ -8,12 +8,12 @@
                     <h3>Move NFTs From Any Chain to Any Chain</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi rerum, suscipit reprehenderit temporibus expedita doloribus.</p>
                 </div>
-                <router-link to="/bridge">
+                <router-link to="">
                     <div class="action">Learn more</div>
                 </router-link>
             </div>
             <div class="image">
-                <img src="/images/swap.png" alt="">
+                <img src="/images/hero2.png" alt="">
             </div>
         </div>
     </div>
@@ -89,7 +89,8 @@ section {
 }
 
 .image img {
-    height: 550px;
+    width: 800px;
+    max-width: 100%;
 }
 
 @media screen and (max-width: 700px) {

@@ -6,7 +6,7 @@ import {AnycallCollection} from "./AnycallCollection.sol";
 contract AnyCallReceiver {
     AnycallCollection private _collection;
 
-    constructor(address collection) {
+    constructor(address payable collection) {
         _collection = AnycallCollection(collection);
     }
 

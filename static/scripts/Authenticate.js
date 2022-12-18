@@ -13,7 +13,7 @@ const Authenticate = {
                     await this.switchToEthereumTestnet()
                     break;
                 case '97':
-                    await this.switchToFantomTestnet()
+                    await this.switchToBinanceTestnet()
                     break;
                 case '4002':
                     await this.switchToFantomTestnet()
@@ -150,6 +150,35 @@ const Authenticate = {
                             },
                             blockExplorerUrls: ['https://goerli.etherscan.io'],
                             rpcUrls: ['https://rpc.ankr.com/eth_goerli'],
+                        }, ],
+                    });
+                } catch (addError) {
+                    console.error(addError);
+                }
+            }
+        }
+    },
+    switchToBinanceTestnet: async function() {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x61' }],
+            });
+        } catch (error) {
+            if (error.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [{
+                            chainId: '0x61',
+                            chainName: 'Smart Chain - Testnet',
+                            nativeCurrency: {
+                                name: 'Binance',
+                                symbol: 'BNB', // 2-6 characters long
+                                decimals: 18
+                            },
+                            blockExplorerUrls: ['https://testnet.bscscan.com'],
+                            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
                         }, ],
                     });
                 } catch (addError) {

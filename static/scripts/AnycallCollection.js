@@ -94,10 +94,6 @@ const AnycallCollection = {
     bridge: async function(tokenId, toChain, address, contractAddress) {
         const instance = await this.getInstance()
 
-        console.log(
-            tokenId, toChain
-        );
-
         if (instance == null) return {
             message: 'Failed to Initialize',
             error: null,
@@ -110,7 +106,7 @@ const AnycallCollection = {
                 contractAddress,
                 toChain, {
                     from: address,
-                    value: Utils.toWei('0.1')
+                    value: Utils.toWei('0.02'),
                 })
             return {
                 message: 'Transaction Hash',
