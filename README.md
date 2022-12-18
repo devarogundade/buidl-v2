@@ -2,26 +2,25 @@ v1 Github -> https://github.com/devarogundade/buidl_dapp
 
 *This Project has been hosted on a free host. You might experience a little delay at cold laod*
 
-# Buidl - Create NFTs Collection that Works On Across Multiple Chains With Zero Knowledge
+# Buidl - Create NFTs Collection that Works On Multiple Chains With Zero Knowledge
 ## _A Moralis X Google Cloud Hackathon Project_
 
-Buidl is a Social-Fi for video content creators (e.g instructors, YouTubers, DIY makers, etc) anyone that shares their skills with other people online either for free or at a particular cost.
+Choosing a blockchain over others is a difficult decision NFT creators have been making over the years and this might also be risky at later run due to network clog or high transaction fees of the preferred blockchain.
 
-Today, there are various existing Web2 solutions for this particular aspect, but we are taking it further leveraging blockchain technology to provide more secured, learning incentives with ownership to the community pattern.
-
-To become a creator on the buidl platform requires a minimum stake of 2000 BDL tokens for a minimum duration of one year, if staking is withdrawn after one year the user is not a creator anymore until they restake a minimum of 2000 BDL back in the contract.
-A creator with suspicious activities and a high report rate is subjected to ban and their staked BDL token remains locked in the smart contract, this feature helps us maintain the DAO a safe community.
+This is where buidl comes in to address this problem,
 
 ## Core Features
+
 - # NFT tool for creators
-    Non creators will cover the largest base of the platform, it is a crucial part of the platform to encourage and reward users to retain them to use and enjoy the       platform.
+    
     
 - # Support for Multiple Chains
-    The Buidl Token (BDL)  is the only payment method of the platform, which will be available on CEX and DEX.
+    Ethereum, Polygon, Fantom, BNB Chain, Arbitum, Avalanche, and more.
 
 - # Initial NFT Offering
-
+    Creators can sell their NFT to selected set of users, with whitelist and blacklist system and also giving users the ability to choose a preferred chain to mint the nft on any of their support chains.
 ## Revenue Model
+
   `Basic $0`
 - up to 10 nft collections.
 - max of 1000 tokens per collection.
@@ -31,7 +30,7 @@ A creator with suspicious activities and a high report rate is subjected to ban 
   `Professional $15/yr`
 - up to 35 nft collections.
 - max of 6000 tokens per collection.
-- supports all chains from basic plus avalanche, fantom, artibium.
+- supports all chains from basic plus avalanche, fantom, arbitum.
 - realtime support.
 
   `Enterprise $65/yr`
@@ -43,16 +42,15 @@ A creator with suspicious activities and a high report rate is subjected to ban 
 
 ## Tech Stacks
 
-- Binance Smart Chain (Testnet)
-- Moralis Stream [#](https://github.com/devarogundade/buidl_dapp/tree/master/moralis-stream-api) and Web3 APIs [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis)
-- IPFS (File System) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/moralis-apis/ipfs.js)
-- Solidity (Smart Contract) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts)
+- Moralis Stream and Web3 APIs
+- IPFS (File System)
+- Solidity (Smart Contract) 
 - Nuxtjs (Frontend)
 - Covalent API
 - Nodejs (Backend) 
 - Truffle
-- MultiChain Anycall V6 (Cross Chain Messaging) [#](https://github.com/devarogundade/buidl_dapp/tree/master/contracts) [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/axelar)
-- Google Cloud Firebase [#](https://github.com/devarogundade/buidl_dapp/tree/master/plugins/firestore.js)
+- MultiChain Anycall V7 (Cross Chain Messaging)
+- Google Cloud Firebase 
 
 ## Demo
 
@@ -64,9 +62,6 @@ A creator with suspicious activities and a high report rate is subjected to ban 
 ## Other Services
 - Netlify
 - Render
-
-## Roadmap
-   https://buidl-v2.netlify.app/#roadmap
 
 ## Contribution
 
