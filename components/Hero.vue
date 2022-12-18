@@ -3,9 +3,7 @@
     <div class="app-width">
         <div class="hero">
             <h3 class="hero_title">
-                Buidl is A Multi Chain
-                <a href="/collections"><span>NFT Creation</span></a>,
-                Tool <a href="/nft-insurance"><span>NFT Insurance</span></a>
+                A <span>Cross Chain</span> Decentralized App for NFT Creators
             </h3>
             <p class="hero_subtitle">Create NFTs Collection that Works On Across Multiple Chain <br> With Zero Knowledge</p>
             <div class="action">

@@ -4,6 +4,7 @@ import Utils from './Utils'
 
 const AnycallCollection = {
     instance: null,
+
     getInstance: async function() {
         if (this.instance != null) {
             return this.instance
@@ -22,6 +23,7 @@ const AnycallCollection = {
             return null
         }
     },
+
     createCollection: async function(
         name,
         symbol,
@@ -61,6 +63,7 @@ const AnycallCollection = {
             }
         }
     },
+
     createArt: async function(uri, address, contractAddress) {
         const instance = await this.getInstance()
 
@@ -121,12 +124,14 @@ const AnycallCollection = {
             }
         }
     },
+
     updateCollection: async function(
         whiteList,
         blackList,
         isWhiteSystem,
         mintPrice,
-        contractAddress
+        contractAddress,
+        address
     ) {
         const instance = await this.getInstance()
 
@@ -159,6 +164,7 @@ const AnycallCollection = {
             }
         }
     },
+
     addChain: async function(id, contractAddress, address) {
         try {
             const instance = await this.getInstance()

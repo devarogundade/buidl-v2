@@ -13,12 +13,12 @@
                 </div>
 
                 <div class="edit">
-                    <p class="label">Mint Price</p>
-                    <input v-model="mintPrice" type="number" placeholder="https://www.example.com">
+                    <p class="label">Mint Price ({{ findChain(collection.chainId).symbol  }})</p>
+                    <input v-model="mintPrice" type="number" placeholder="0">
                 </div>
 
                 <div class="edit">
-                    <p class="label">WhiteList</p>
+                    <p class="label">WhiteList / BlackList</p>
                     <label class="switch">
                         <input v-model="isWhiteSystem" type="checkbox">
                         <span class="slider round"></span>
@@ -26,8 +26,13 @@
                 </div>
 
                 <div class="edit mt_40" v-if="isWhiteSystem">
-                    <div class="label">Addresses separated by comma</div>
+                    <div class="label">WhiteList addresses separated by comma</div>
                     <textarea v-model="whiteList" cols="30" rows="10"></textarea>
+                </div>
+
+                <div class="edit" v-if="isWhiteSystem">
+                    <div class="label">BlackList addresses separated by comma</div>
+                    <textarea v-model="blackList" cols="30" rows="10"></textarea>
                 </div>
 
                 <div class="sign_up" v-if="!updating" v-on:click="update()">Update</div>
@@ -46,17 +51,20 @@ import Authenticate from '~/static/scripts/Authenticate';
 import AnycallCollection from '~/static/scripts/AnycallCollection';
 import Firestore from '~/static/scripts/Firestore';
 import Network from '~/static/scripts/Network';
+import chains from "~/static/chains.json"
+import Utils from '~/static/scripts/Utils';
 
 export default {
     data() {
         return {
             collection: null,
-            mintPrice: '0',
+            mintPrice: '',
             whiteList: '',
             blackList: '',
             isWhiteSystem: false,
             updating: false,
-            fetching: true
+            fetching: true,
+            chains: chains
         }
     },
     created() {
@@ -79,14 +87,18 @@ export default {
             this.updating = true
 
             const response = await AnycallCollection.updateCollection(
-                this.whiteList,
-                this.blackList,
+                this.whiteList.split(","),
+                this.blackList.split(","),
                 this.isWhiteSystem,
-                this.mintPrice,
-                this.$route.params.collection.toLowerCase()
+                Utils.toWei(this.mintPrice),
+                this.$route.params.collection.toLowerCase(),
+                address
             )
 
             this.updating = false
+        },
+        findChain: function (id) {
+            return this.chains.filter(chain => chain.chainId == id)[0]
         }
     }
 }
