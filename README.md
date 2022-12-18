@@ -59,6 +59,7 @@ This is where buidl comes in to address this problem,
 ## Sneak peaks
 ![Screenshot 2022-12-18 163847](https://user-images.githubusercontent.com/81397790/208306951-fdc194f4-23e9-4228-ac2b-d71b5b5f6d10.png)
 ![Screenshot 2022-12-18 170954](https://user-images.githubusercontent.com/81397790/208308229-378f6332-c546-417a-8fed-9398cde0b4ab.png)
+![Screenshot 2022-12-18 171231](https://user-images.githubusercontent.com/81397790/208308494-45c1ba3e-5776-46cc-9d15-a0c0ea7837b5.png)
 
 ## Other Services
 - Netlify
