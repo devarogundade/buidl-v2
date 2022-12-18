@@ -57,7 +57,7 @@ This is where buidl comes in to address this problem,
 - See mode at https://buidl-v2.netflify.app/
 
 ## Sneak peaks
-![Screenshot 2022-11-11 151337](https://user-images.githubusercontent.com/81397790/201359847-65319d26-b7ed-4c6c-b36e-766be670108c.png)
+![Screenshot 2022-12-18 163847](https://user-images.githubusercontent.com/81397790/208306951-fdc194f4-23e9-4228-ac2b-d71b5b5f6d10.png)
 
 ## Other Services
 - Netlify
