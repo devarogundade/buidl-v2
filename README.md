@@ -12,13 +12,13 @@ This is where buidl comes in to address this problem,
 ## Core Features
 
 - # NFT tool for creators
-    Non creators will cover the largest base of the platform, it is a crucial part of the platform to encourage and reward users to retain them to use and enjoy the       platform.
+    
     
 - # Support for Multiple Chains
     Ethereum, Polygon, Fantom, BNB Chain, Arbitum, Avalanche, and more.
 
 - # Initial NFT Offering
-
+    Creators can sell their NFT to selected set of users, with whitelist and blacklist system and also giving users the ability to choose a preferred chain to mint their nft on any of their support chains.
 ## Revenue Model
 
   `Basic $0`
