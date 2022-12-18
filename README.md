@@ -15,7 +15,7 @@ This is where buidl comes in to address this problem,
     Non creators will cover the largest base of the platform, it is a crucial part of the platform to encourage and reward users to retain them to use and enjoy the       platform.
     
 - # Support for Multiple Chains
-    The Buidl Token (BDL)  is the only payment method of the platform, which will be available on CEX and DEX.
+    Ethereum, Polygon, Fantom, BNB Chain, Arbitum, Avalanche, and more.
 
 - # Initial NFT Offering
 
@@ -30,7 +30,7 @@ This is where buidl comes in to address this problem,
   `Professional $15/yr`
 - up to 35 nft collections.
 - max of 6000 tokens per collection.
-- supports all chains from basic plus avalanche, fantom, artibium.
+- supports all chains from basic plus avalanche, fantom, arbitum.
 - realtime support.
 
   `Enterprise $65/yr`
