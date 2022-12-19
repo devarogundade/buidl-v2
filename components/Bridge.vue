@@ -48,18 +48,18 @@
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png" alt="">
                     <p>Avalanche Fuji Testnet</p>
                 </div>
-                <div class="touch">
+                <!-- <div class="touch">
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png" alt="">
                     <p>Mumbai</p>
                 </div>
                 <div class="touch">
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" alt="">
                     <p>BNB Testnet</p>
-                </div>
+                </div> -->
             </div>
         </div>
 
-        <button v-on:click="test()">Add Chain</button>
+        <!-- <button v-on:click="test()">Add Chain</button> -->
     </div>
 
     <ChainsPicker v-if="showChains" v-on:close="showChains = false" v-on:chain="selectChain($event)" />
