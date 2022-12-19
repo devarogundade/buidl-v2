@@ -54,10 +54,14 @@ This is where buidl comes in to address this problem,
 
 ## Demo
 
-- See mode at https://buidl-v2.netflify.app/
+- See mode at https://buidl-v2.netlify.app/
 
 ## Sneak peaks
-![Screenshot 2022-11-11 151337](https://user-images.githubusercontent.com/81397790/201359847-65319d26-b7ed-4c6c-b36e-766be670108c.png)
+![Screenshot 2022-12-18 163847](https://user-images.githubusercontent.com/81397790/208306951-fdc194f4-23e9-4228-ac2b-d71b5b5f6d10.png)
+![Screenshot 2022-12-18 170954](https://user-images.githubusercontent.com/81397790/208308229-378f6332-c546-417a-8fed-9398cde0b4ab.png)
+![Screenshot 2022-12-18 171231](https://user-images.githubusercontent.com/81397790/208308494-45c1ba3e-5776-46cc-9d15-a0c0ea7837b5.png)
+![Screenshot 2022-12-18 195150](https://user-images.githubusercontent.com/81397790/208314237-2cdc2f15-7098-4803-96de-26ed3db55e22.png)
+![Screenshot 2022-12-18 205017](https://user-images.githubusercontent.com/81397790/208316422-aa92c89d-5fc0-40f8-b1b9-0d708ee96495.png)
 
 ## Other Services
 - Netlify
