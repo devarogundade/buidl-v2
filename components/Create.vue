@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="edit">
-                    <p class="label">About Collection</p>
+                    <p class="label">Symbol</p>
                     <input type="text" v-model="symbol" placeholder="Symbol e.g SMP" maxlength="6">
                 </div>
 

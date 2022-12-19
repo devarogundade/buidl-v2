@@ -9,12 +9,12 @@
                 </div>
 
                 <div class="edit">
-                    <p class="label">Art Name</p>
+                    <p class="label">Name</p>
                     <input type="text" v-model="name" placeholder="Astronaut on moon" maxlength="45">
                 </div>
 
                 <div class="edit">
-                    <p class="label">About Art</p>
+                    <p class="label">Description</p>
                     <input type="text" v-model="about" placeholder="A short description" maxlength="1002">
                 </div>
 

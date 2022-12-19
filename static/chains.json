@@ -33,4 +33,11 @@
     "chainId": "8001",
     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png",
     "address": ""
+}, {
+    "name": "Arbitrum Rinkeby",
+    "slug": "arbitrum",
+    "symbol": "ETH",
+    "chainId": "421611",
+    "image": "/images/arbitrum.jpg",
+    "address": ""
 }]

@@ -2,47 +2,67 @@
 <section>
     <Progress v-if="fetching" />
     <div class="app-width" v-else>
-        <div class="form" v-if="nft">
-            <div class="nft">
-                <div class="image">
-                    <img :src="toJson(nft.metadata).image" alt="">
+        <div class="left">
+            <div class="form" v-if="nft">
+                <div class="nft">
+                    <div class="image">
+                        <img :src="toJson(nft.metadata).image" alt="">
+                    </div>
+                    <div class="text">
+                        <h3 class="name">{{ toJson(nft.metadata).name }}</h3>
+                        <p class="id"># {{ nft.token_id }}</p>
+                    </div>
                 </div>
-                <div class="text">
-                    <h3 class="name">{{ toJson(nft.metadata).name }}</h3>
-                    <p class="id"># {{ nft.token_id }}</p>
+                <div class="from">
+                    <p>Current chain</p>
+                    <div class="chain">
+                        <img :src="findChain($route.query.chain).image" alt="">
+                        <p>{{ findChain($route.query.chain).name }}</p>
+                    </div>
+                </div>
+                <div class="from">
+                    <p>Destination chain</p>
+                    <div v-if="to" class="chain" v-on:click="showChains = true">
+                        <img :src="to.image" alt="">
+                        <p>{{ to.name }}</p>
+                        <i class="fi fi-rr-angle-down"></i>
+                    </div>
                 </div>
             </div>
-            <div class="from">
-                <p>Current chain</p>
-                <div class="chain">
-                    <img :src="findChain($route.query.chain).image" alt="">
-                    <p>{{ findChain($route.query.chain).name }}</p>
+
+            <a v-if="isOwner">
+                <div class="action" v-on:click="bridge()" v-if="!bridging">Bridge NFT</div>
+                <div class="action" v-else>
+                    <TinyProgress />
                 </div>
-            </div>
-            <div class="from">
-                <p>Destination chain</p>
-                <div v-if="to" class="chain" v-on:click="showChains = true">
-                    <img :src="to.image" alt="">
-                    <p>{{ to.name }}</p>
-                    <i class="fi fi-rr-angle-down"></i>
+            </a>
+            <a v-else>
+                <div class="action">You don't own this NFT!</div>
+            </a>
+        </div>
+
+        <div class="right">
+            <h3>Activities</h3>
+            <div class="touches">
+                <div class="touch">
+                    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png" alt="">
+                    <p>Avalanche Fuji Testnet</p>
+                </div>
+                <div class="touch">
+                    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png" alt="">
+                    <p>Mumbai</p>
+                </div>
+                <div class="touch">
+                    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" alt="">
+                    <p>BNB Testnet</p>
                 </div>
             </div>
         </div>
 
-        <a v-if="isOwner">
-            <div class="action" v-on:click="bridge()" v-if="!bridging">Bridge NFT</div>
-            <div class="action" v-else>
-                <TinyProgress />
-            </div>
-        </a>
-        <a v-else>
-            <div class="action">You don't own this NFT!</div>
-        </a>
-
         <button v-on:click="test()">Add Chain</button>
     </div>
 
-    <!-- <ChainsPicker v-if="showChains" v-on:close="showChains = false" v-on:chain="selectChain($event)" /> -->
+    <ChainsPicker v-if="showChains" v-on:close="showChains = false" v-on:chain="selectChain($event)" />
 </section>
 </template>
 
@@ -111,7 +131,7 @@ export default {
         },
         test: async function () {
             const address = (await Authenticate.getUserAddress(Network.current())).address
-            await AnycallCollection.addChain(4002, '0xd141aA637D7295643eb18F211e14b298B4AB58A1', address)
+            await AnycallCollection.addChain(4002, '0x0C1E9ED4ea9c89F3520e1fB83AFB4d5fCE5321D8', address)
         }
     }
 }
@@ -121,9 +141,8 @@ export default {
 .app-width {
     display: flex;
     justify-content: center;
+    gap: 100px;
     padding: 150px 0;
-    flex-direction: column;
-    align-items: center;
 }
 
 .form {
@@ -224,5 +243,44 @@ export default {
     line-height: 24px;
     letter-spacing: 0.02em;
     color: #333025;
+}
+
+.right {
+    width: 350px;
+}
+
+.right h3 {
+    color: #f9f6ed;
+    font-size: 20px;
+    text-decoration: underline 2px #F3CB34;
+}
+
+.touches {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.touch {
+    border-left: 1px #cebd8b solid;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 20px;
+}
+
+.touch img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: -35px;
+}
+
+.touch p {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #3d392a;
+    color: #ddd3b3;
+    font-size: 16px;
 }
 </style>
