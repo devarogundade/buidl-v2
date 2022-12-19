@@ -49,6 +49,10 @@
                     <p>Avalanche Fuji Testnet</p>
                 </div>
                 <!-- <div class="touch">
+                    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3513.png" alt="">
+                    <p>Fantom Testnet</p>
+                </div>
+                   <div class="touch">
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png" alt="">
                     <p>Mumbai</p>
                 </div>
