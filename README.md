@@ -7,12 +7,12 @@ v1 Github -> https://github.com/devarogundade/buidl_dapp
 
 Choosing a blockchain over others is a difficult decision NFT creators have been making over the years and this might also be risky at later run due to network clog or high transaction fees of the preferred blockchain.
 
-This is where buidl comes in to address this problem,
+This is where buidl comes in to address this problem, with a handy  decentralized application that abstract the logics of cross bringing from NFT creators and artists yet allowing them and their holder to move their nft tokens from any chain to any chain.
 
 ## Core Features
 
 - # NFT tool for creators
-    
+    Giving NFT creators and artist the opportunity to create and deployed a multi chain NFT contract without technical know how.
     
 - # Support for Multiple Chains
     Ethereum, Polygon, Fantom, BNB Chain, Arbitum, Avalanche, and more.
