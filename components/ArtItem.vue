@@ -32,7 +32,7 @@
                     <div v-on:click="share()" class="button share"><i class="fi fi-rr-arrow-up-from-square"></i></div>
                 </div>
             </div>
-            <div class="nfts">
+            <div class="nfts" v-if="nfts.length > 0">
                 <div class="nft" v-for="(nft, index) in nfts" :key="index">
                     <router-link :to="`/bridge/${$route.params.collection}/${nft.token_id}?chain=${nft.chainId}`">
                         <img :src="findChain(nft.chainId).image" alt="" class="chain">
@@ -46,6 +46,9 @@
                         <div class="view">View Item</div>
                     </a>
                 </div>
+            </div>
+            <div class="empty" v-else>
+                This collection has no tokens.
             </div>
         </div>
     </div>
@@ -285,5 +288,15 @@ export default {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.empty {
+    text-align: center;
+    color: #fff8dd;
+    font-size: 22px;
+    padding: 50px;
+    font-weight: 600;
+    margin-top: 60px;
+    border: #3d392a 6px solid;
 }
 </style>
